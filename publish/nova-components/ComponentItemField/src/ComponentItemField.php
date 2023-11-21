@@ -7,8 +7,6 @@ use App\Services\ComponentsService;
 use Laravel\Nova\Fields\Field;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use Webid\CmsNova\App\Models\Components\BreadcrumbComponent;
-use Webid\CmsNova\App\Models\Components\CodeSnippetComponent;
-use Webid\CmsNova\App\Models\Components\NewsletterComponent;
 
 class ComponentItemField extends Field
 {
@@ -50,8 +48,6 @@ class ComponentItemField extends Field
         $components = collect(json_decode($components, true));
 
         $breadcrumbComponentIds = [];
-        $newsletterComponentIds = [];
-        $codeSnippetComponentIds = [];
 
         foreach ($components as $key => $component) {
             switch ($component['component_type']) {
@@ -59,28 +55,14 @@ class ComponentItemField extends Field
                     $breadcrumbComponentIds[$component['id']] = ['order' => (int) $key + 1];
 
                     break;
-
-                case NewsletterComponent::class:
-                    $newsletterComponentIds[$component['id']] = ['order' => (int) $key + 1];
-
-                    break;
-
-                case CodeSnippetComponent::class:
-                    $codeSnippetComponentIds[$component['id']] = ['order' => (int) $key + 1];
-
-                    break;
             }
         }
 
         Template::saved(function ($model) use (
-            $newsletterComponentIds,
-            $codeSnippetComponentIds,
             $breadcrumbComponentIds
         ) {
             // @var Template $model
             $model->breadcrumbComponents()->sync($breadcrumbComponentIds);
-            $model->newsletterComponents()->sync($newsletterComponentIds);
-            $model->codeSnippetComponents()->sync($codeSnippetComponentIds);
         });
     }
 

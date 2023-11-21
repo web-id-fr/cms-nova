@@ -4,17 +4,11 @@ namespace App\Services;
 
 use Illuminate\Support\Collection;
 use Webid\CmsNova\App\Models\Components\BreadcrumbComponent;
-use Webid\CmsNova\App\Models\Components\CodeSnippetComponent;
-use Webid\CmsNova\App\Models\Components\NewsletterComponent;
 use Webid\CmsNova\App\Repositories\Components\BreadcrumbComponentRepository;
-use Webid\CmsNova\App\Repositories\Components\CodeSnippetComponentRepository;
-use Webid\CmsNova\App\Repositories\Components\NewsletterComponentRepository;
 
 class ComponentsService
 {
     private ?Collection $allComponents = null;
-    private NewsletterComponentRepository $newsletterComponentRepository;
-    private CodeSnippetComponentRepository $codeSnippetComponentRepository;
     private BreadcrumbComponentRepository $breadcrumbComponentRepository;
 
     public function getAllComponents(): Collection
@@ -25,8 +19,6 @@ class ComponentsService
 
         $this->allComponents = collect();
 
-        $this->newsletterComponentRepository = app(NewsletterComponentRepository::class);
-        $this->codeSnippetComponentRepository = app(CodeSnippetComponentRepository::class);
         $this->breadcrumbComponentRepository = app(BreadcrumbComponentRepository::class);
 
         $components = collect();
@@ -35,23 +27,11 @@ class ComponentsService
         $breadcrumbComponents = collect();
 
         $this->loadComponents(
-            $this->newsletterComponentRepository->getPublishedComponents(),
-            NewsletterComponent::class,
-            $allNewsletterComponents
-        );
-        $this->loadComponents(
-            $this->codeSnippetComponentRepository->getPublishedComponents(),
-            CodeSnippetComponent::class,
-            $codeSnippetComponents
-        );
-        $this->loadComponents(
             $this->breadcrumbComponentRepository->getPublishedComponents(),
             BreadcrumbComponent::class,
             $breadcrumbComponents
         );
 
-        $components[config('components.'.NewsletterComponent::class.'.title')] = $allNewsletterComponents;
-        $components[config('components.'.CodeSnippetComponent::class.'.title')] = $codeSnippetComponents;
         $components[config('components.'.BreadcrumbComponent::class.'.title')] = $breadcrumbComponents;
 
         $this->allComponents = $components;

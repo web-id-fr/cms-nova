@@ -6,28 +6,10 @@ use Illuminate\Database\Eloquent\Relations\MorphToMany;
 use Illuminate\Support\Collection;
 use Webid\CmsNova\App\Models\BaseTemplate;
 use Webid\CmsNova\App\Models\Components\BreadcrumbComponent;
-use Webid\CmsNova\App\Models\Components\CodeSnippetComponent;
-use Webid\CmsNova\App\Models\Components\NewsletterComponent;
 
 class Template extends BaseTemplate
 {
     public Collection $component_items;
-
-    public function newsletterComponents(): MorphToMany
-    {
-        return $this->morphedByMany(NewsletterComponent::class, 'component')
-            ->withPivot('order')
-            ->orderBy('order')
-        ;
-    }
-
-    public function codeSnippetComponents(): MorphToMany
-    {
-        return $this->morphedByMany(CodeSnippetComponent::class, 'component')
-            ->withPivot('order')
-            ->orderBy('order')
-        ;
-    }
 
     public function breadcrumbComponents(): MorphToMany
     {
@@ -41,8 +23,6 @@ class Template extends BaseTemplate
     {
         $components = collect();
 
-        $this->mapItems($this->newsletterComponents, NewsletterComponent::class, $components);
-        $this->mapItems($this->codeSnippetComponents, CodeSnippetComponent::class, $components);
         $this->mapItems($this->breadcrumbComponents, BreadcrumbComponent::class, $components);
 
         $components = $components->sortBy(function ($item) {
