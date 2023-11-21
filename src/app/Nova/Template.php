@@ -3,7 +3,6 @@
 namespace Webid\CmsNova\App\Nova;
 
 use App\Models\Template as TemplateModel;
-use App\Nova\Repeater\CodeSnippetComponent;
 use Carbon\Carbon;
 use Eminiarts\Tabs\Tab;
 use Eminiarts\Tabs\Tabs;
@@ -15,7 +14,6 @@ use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\DateTime;
 use Laravel\Nova\Fields\Heading;
 use Laravel\Nova\Fields\ID;
-use Laravel\Nova\Fields\Repeater;
 use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use Laravel\Nova\Resource;
@@ -203,13 +201,8 @@ class Template extends Resource
     protected function contentFields(): array
     {
         return [
-            Repeater::make('code Snippet Component', 'codeSnippetComponent')
-                ->repeatables([
-                    CodeSnippetComponent::make(),
-                ])
-                ->asHasMany(),
-            // ComponentItemField::make(__('Components'), 'components')
-            // ->hideFromIndex(),
+            ComponentItemField::make(__('Components'), 'components')
+                ->hideFromIndex(),
         ];
     }
 
