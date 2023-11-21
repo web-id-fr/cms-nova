@@ -1,0 +1,25 @@
+{
+    "name": "webid/articles",
+    "description": "",
+    "authors": [
+        {
+            "name": "Wilfried",
+            "email": "wilfried@web-id.fr"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Webid\\CmsNova\\Modules\\Articles\\Providers\\ArticlesServiceProvider"
+            ],
+            "aliases": {
+
+            }
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Webid\\CmsNova\\Modules\\Articles\\": ""
+        }
+    }
+}

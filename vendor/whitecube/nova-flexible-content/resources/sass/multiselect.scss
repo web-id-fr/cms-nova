@@ -1,0 +1,16 @@
+.flexible-search-menu-multiselect {
+    --ms-font-size: 0.875rem;
+    --ms-option-font-size: 0.875rem;
+    --ms-ring-color: rgb(var(--colors-primary-100));
+    --ms-border-color: rgb(var(--colors-gray-300));
+
+    html.dark & {
+        --ms-ring-color: rgb(var(--colors-gray-700));
+        --ms-border-color: rgb(var(--colors-gray-700));
+        --ms-dropdown-border-color: var(--ms-border-color);
+        --ms-bg: rgb(var(--colors-gray-900));
+        --ms-dropdown-bg: var(--ms-bg);
+        --ms-option-bg-pointed: rgb(var(--colors-gray-700));
+        --ms-option-color-pointed: rgb(var(--colors-gray-400));
+    }
+}

@@ -1,0 +1,99 @@
+<?xml version="1.0"?>
+<ruleset name="Laravel Standards">
+    <description>The Laravel Coding Standards</description>
+
+    <file>app</file>
+    <file>config</file>
+    <file>nova-components</file>
+    <file>public</file>
+    <file>resources</file>
+    <file>routes</file>
+    <file>tests</file>
+
+    <exclude-pattern>*/Enums/*</exclude-pattern>
+    <exclude-pattern>public/*</exclude-pattern>
+    <exclude-pattern>*/cache/*</exclude-pattern>
+    <exclude-pattern>*/*.js</exclude-pattern>
+    <exclude-pattern>*/*.css</exclude-pattern>
+    <exclude-pattern>*/*.xml</exclude-pattern>
+    <exclude-pattern>*/*.blade.php</exclude-pattern>
+    <exclude-pattern>*/autoload.php</exclude-pattern>
+    <exclude-pattern>*/storage/*</exclude-pattern>
+    <exclude-pattern>*/vendor/*</exclude-pattern>
+    <exclude-pattern>*/migrations/*</exclude-pattern>
+    <exclude-pattern>*/lang/*</exclude-pattern>
+
+    <arg name="report" value="full"/>
+    <arg name="colors"/>
+    <arg value="p"/>
+    <arg name="parallel" value="8"/>
+    <arg name="ignore-annotations"/>
+
+    <ini name="memory_limit" value="128M"/>
+
+    <rule ref="PSR12"/>
+
+    <rule ref="Generic.Arrays.ArrayIndent"/>
+    <rule ref="Generic.Arrays.DisallowLongArraySyntax.Found"/>
+    <rule ref="Generic.Classes.DuplicateClassName"/>
+    <rule ref="Generic.CodeAnalysis.EmptyPHPStatement"/>
+    <rule ref="Generic.CodeAnalysis.EmptyStatement"/>
+    <rule ref="Generic.CodeAnalysis.ForLoopWithTestFunctionCall"/>
+    <rule ref="Generic.CodeAnalysis.UnconditionalIfStatement"/>
+    <rule ref="Generic.CodeAnalysis.UnnecessaryFinalModifier"/>
+    <rule ref="Generic.CodeAnalysis.UselessOverridingMethod"/>
+    <rule ref="Generic.Commenting.Fixme"/>
+    <rule ref="Generic.Commenting.Todo"/>
+    <rule ref="Generic.Files.OneClassPerFile"/>
+    <rule ref="Generic.Files.OneInterfacePerFile"/>
+    <rule ref="Generic.Files.OneObjectStructurePerFile"/>
+    <rule ref="Generic.Files.OneTraitPerFile"/>
+    <rule ref="Generic.Formatting.SpaceAfterCast"/>
+    <rule ref="Generic.Metrics.NestingLevel"/>
+    <rule ref="Generic.Metrics.CyclomaticComplexity"/>
+    <rule ref="Generic.PHP.BacktickOperator"/>
+    <rule ref="Generic.PHP.DeprecatedFunctions"/>
+    <rule ref="Generic.PHP.LowerCaseConstant"/>
+    <rule ref="Generic.PHP.LowerCaseType"/>
+    <rule ref="Generic.VersionControl.GitMergeConflict"/>
+    <rule ref="Generic.WhiteSpace.DisallowTabIndent"/>
+    <rule ref="Generic.WhiteSpace.LanguageConstructSpacing"/>
+    <rule ref="Generic.WhiteSpace.SpreadOperatorSpacingAfter"/>
+
+    <rule ref="Squiz.Arrays.ArrayBracketSpacing"/>
+    <rule ref="Squiz.Arrays.ArrayDeclaration.CommaAfterLast"/>
+    <rule ref="Squiz.Arrays.ArrayDeclaration.NoCommaAfterLast"/>
+    <rule ref="Squiz.Arrays.ArrayDeclaration.NotLowerCase"/>
+    <rule ref="Squiz.Arrays.ArrayDeclaration.SpaceInEmptyArray"/>
+    <rule ref="Squiz.Arrays.ArrayDeclaration.NoSpaceAfterComma"/>
+    <rule ref="Squiz.Arrays.ArrayDeclaration.SpaceBeforeComma"/>
+    <rule ref="Squiz.Classes.ClassFileName"/>
+    <rule ref="Squiz.Classes.SelfMemberReference"/>
+    <rule ref="Squiz.Classes.ValidClassName"/>
+    <rule ref="Squiz.NamingConventions.ValidVariableName.NotCamelCaps"/>
+    <rule ref="Squiz.Operators.IncrementDecrementUsage"/>
+    <rule ref="Squiz.Operators.ValidLogicalOperators"/>
+    <rule ref="Squiz.PHP.DisallowMultipleAssignments"/>
+    <rule ref="Squiz.PHP.DisallowSizeFunctionsInLoops"/>
+    <rule ref="Squiz.PHP.Eval"/>
+    <rule ref="Squiz.PHP.LowercasePHPFunctions"/>
+
+    <!-- exclude camel case method name rule for testing -->
+    <rule ref="PSR1.Methods.CamelCapsMethodName">
+        <exclude-pattern>tests/*</exclude-pattern>
+    </rule>
+
+    <rule ref="Generic.Files.LineLength">
+        <properties>
+            <property name="lineLimit" value="150"/>
+        </properties>
+        <exclude-pattern>app/Models/*</exclude-pattern>
+        <exclude-pattern>tests/*</exclude-pattern>
+        <exclude-pattern>routes/*.php</exclude-pattern>
+    </rule>
+
+    <rule ref="PSR1.Files.SideEffects">
+        <exclude-pattern>public/index.php</exclude-pattern>
+    </rule>
+
+</ruleset>

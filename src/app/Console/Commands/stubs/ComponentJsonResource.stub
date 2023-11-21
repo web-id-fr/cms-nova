@@ -1,0 +1,26 @@
+<?php
+
+namespace App\Http\Resources\Components;
+
+use App\Models\Components\{{componentName}}Component;
+use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\JsonResource;
+
+class {{componentName}}ComponentResource extends JsonResource
+{
+    /**
+         * @param Request $request
+         *
+         * @return array
+         */
+    public function toArray($request)
+    {
+        return [
+            $this->mergeWhen($this->resource->component->status === {{componentName}}Component::_STATUS_PUBLISHED, [
+                'id' => $this->resource->component->id,
+                'name' => $this->resource->component->name,
+                'view' =>  config("components." . {{componentName}}Component::class . ".view"),
+            ]),
+        ];
+    }
+}

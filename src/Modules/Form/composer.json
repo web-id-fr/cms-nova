@@ -1,0 +1,28 @@
+{
+  "name": "webid/form",
+  "description": "",
+  "authors": [
+    {
+      "name": "Elise",
+      "email": "elise@web-id.fr"
+    }
+  ],
+  "extra": {
+    "laravel": {
+      "providers": [
+        "Webid\\CmsNova\\Modules\\Form\\Providers\\FormServiceProvider",
+        "Webid\\RecipientItemField\\FieldServiceProvider",
+        "Webid\\ServiceItemField\\FieldServiceProvider",
+        "Webid\\FieldItemField\\FieldServiceProvider"
+      ]
+    }
+  },
+  "autoload": {
+    "psr-4": {
+      "Webid\\CmsNova\\Modules\\Form\\": "",
+      "Webid\\RecipientItemField\\": "Nova-components/RecipientItemField/src/",
+      "Webid\\ServiceItemField\\": "Nova-components/ServiceItemField/src/",
+      "Webid\\FieldItemField\\": "Nova-components/FieldItemField/src/"
+    }
+  }
+}

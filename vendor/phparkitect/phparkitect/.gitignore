@@ -1,0 +1,12 @@
+/vendor/
+.phpunit.result.cache
+.idea
+.php_cs.cache
+.php-cs-fixer.cache
+/web
+/bin/
+!/bin/box.phar
+phparkitect.phar
+composer.lock
+.php-version
+composer.phar

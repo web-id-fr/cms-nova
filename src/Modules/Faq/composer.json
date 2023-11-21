@@ -1,0 +1,22 @@
+{
+    "name": "webid/faq",
+    "description": "",
+    "authors": [
+        {
+            "name": "Elise",
+            "email": "elise@web-id.fr"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Webid\\CmsNova\\Modules\\Faq\\Providers\\FaqServiceProvider"
+            ]
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Webid\\CmsNova\\Modules\\Faq\\": ""
+        }
+    }
+}

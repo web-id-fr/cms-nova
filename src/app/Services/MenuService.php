@@ -1,0 +1,210 @@
+<?php
+
+namespace Webid\CmsNova\App\Services;
+
+use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Str;
+use Webid\CmsNova\App\Exceptions\Templates\DepthExceededException;
+use Webid\CmsNova\App\Exceptions\Templates\MissingParameterException;
+use Webid\CmsNova\App\Exceptions\Templates\TemplateNotFoundException;
+use Webid\CmsNova\App\Http\Resources\Menu\MenuResource;
+use Webid\CmsNova\App\Repositories\Menu\MenuRepository;
+use Webid\CmsNova\App\Services\MenuBladeDirective\Menu;
+
+class MenuService
+{
+    protected string $templatesPath = '';
+
+    /** @var array<mixed> */
+    private $menus = [];
+
+    /** @var array<mixed> */
+    private $allMenus = [];
+
+    public function __construct(
+        private MenuRepository $menuRepository,
+        string $templatesPath = ''
+    ) {
+        if (empty($templatesPath)) {
+            $templatesPath = resource_path('views');
+        }
+
+        $this->templatesPath = $templatesPath;
+    }
+
+    public static function make(): self
+    {
+        return app(static::class);
+    }
+
+    public function getMenus(): array
+    {
+        if (! empty($this->allMenus)) {
+            return $this->allMenus;
+        }
+
+        try {
+            $menus = MenuResource::collection($this->menuRepository->all())->resolve();
+        } catch (\Throwable $exception) {
+            $menus = [];
+        }
+
+        $this->allMenus = [];
+
+        foreach ($menus as $menu) {
+            $zones = data_get($menu, 'zones', []);
+
+            if (! empty($zones)) {
+                foreach ($zones as $zone) {
+                    $this->allMenus[$zone]['title'] = data_get($menu, 'title', []);
+                    $this->allMenus[$zone]['zones'] = data_get($menu, 'items', []);
+                }
+            }
+        }
+
+        return $this->allMenus;
+    }
+
+    /**
+     * @throws MissingParameterException
+     * @throws TemplateNotFoundException
+     */
+    public function getMenusZones(): Collection
+    {
+        try {
+            $bladeTemplates = $this->findTemplatesRecursively($this->templatesPath);
+
+            $menus = collect();
+
+            foreach ($bladeTemplates as $template) {
+                $menus = $menus->merge($this->getMenusZonesInTemplate($template));
+            }
+
+            return $menus->unique('menuID');
+        } catch (DepthExceededException $exception) {
+            return collect();
+        }
+    }
+
+    public function showMenu(string $expression): string
+    {
+        if (isset($this->menus[$expression])) {
+            return $this->menus[$expression];
+        }
+
+        try {
+            $menu = new Menu($expression);
+            $menusData = data_get($this->getMenus(), $menu->menuID, []);
+
+            $options = $menu->options;
+            $data = [
+                'menu_items' => data_get($menusData, 'zones', []),
+                'title' => data_get($menusData, 'title', ''),
+            ];
+        } catch (MissingParameterException $exception) {
+            $options = $data = [];
+        }
+
+        $this->menus[$expression] = $this->getHtmlForZone('components/menu', $data, $options);
+
+        return $this->menus[$expression];
+    }
+
+    public function getHtmlForZone(?string $contentType, array $data, array $options = []): string
+    {
+        try {
+            $view = ! empty($contentType) ? strtolower($contentType) : $contentType;
+
+            return view($view)
+                ->with($data)
+                ->with($options)
+                ->render()
+            ;
+        } catch (\Throwable $exception) {
+            info($exception->getMessage());
+
+            return '';
+        }
+    }
+
+    /**
+     * @throws DepthExceededException
+     */
+    protected function findTemplatesRecursively(
+        string $currentFolder,
+        Collection $foundTemplates = null,
+        int $depth = 0
+    ): Collection {
+        // Garde-fou, pour éviter de rester bloqué dans une boucle ou une arborescence trop complexe
+        if ($depth >= 10) {
+            throw new DepthExceededException();
+        }
+
+        if (is_null($foundTemplates)) {
+            $foundTemplates = collect();
+        }
+
+        /** @var array $files */
+        $files = scandir($currentFolder);
+
+        // On récupère la liste des fichiers à scanner, en excluant certains fichiers / dossiers à éviter
+        $filesToScan = collect($files)
+            ->filter(function ($item) {
+                $foldersToAvoid = [
+                    '.',
+                    '..',
+                    'node_modules',
+                    'images',
+                    'fonts',
+                    'assets',
+                    'dist',
+                ];
+
+                return ! in_array($item, $foldersToAvoid);
+            })
+        ;
+
+        // On boucle sur les fichiers restants et on ne garde que les templates Blade
+        foreach ($filesToScan as $file) {
+            // On force le "/"
+            $filename = rtrim($currentFolder, '/') . "/{$file}";
+
+            if (is_dir($filename)) {
+                $foundTemplates->merge(
+                    $this->findTemplatesRecursively($filename, $foundTemplates, $depth + 1)
+                );
+            } elseif (Str::is('*blade.php', $filename)) {
+                $foundTemplates->push($filename);
+            }
+        }
+
+        return $foundTemplates;
+    }
+
+    /**
+     * @throws MissingParameterException
+     * @throws TemplateNotFoundException
+     */
+    protected function getMenusZonesInTemplate(string $filepath): array
+    {
+        if (! File::exists($filepath)) {
+            throw new TemplateNotFoundException($filepath);
+        }
+
+        $content = File::get($filepath);
+        $menus = [];
+        $matches = [];
+
+        preg_match_all('/\\@menu\\(([^@<]*)\\)/', $content, $matches);
+
+        if (! empty($matches[1])) {
+            foreach ($matches[1] as $expressionDeMenu) {
+                $menuZone = new Menu($expressionDeMenu);
+                array_push($menus, $menuZone);
+            }
+        }
+
+        return $menus;
+    }
+}
