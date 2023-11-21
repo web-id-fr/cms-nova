@@ -37,7 +37,7 @@
     ],
     "require": {
         "php": "^8.2",
-        "laravel/framework": "^9",
+        "laravel/framework": "^10",
         "laravel/nova": "~4.0",
         "eminiarts/nova-tabs": "^2.2",
         "whitecube/nova-flexible-content": "^1.0",
