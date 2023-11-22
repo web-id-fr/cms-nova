@@ -113,6 +113,7 @@ class TemplateRepository
             })
             ->where('indexation', true)
             ->where('contains_articles_list', true)
-            ->get();
+            ->get()
+        ;
     }
 }

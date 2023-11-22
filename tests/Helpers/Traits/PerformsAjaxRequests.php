@@ -10,6 +10,8 @@ trait PerformsAjaxRequests
     ];
 
     /**
+     * @param mixed $uri
+     *
      * @return \Illuminate\Testing\TestResponse
      */
     protected function ajaxPost($uri, array $data = [], array $headers = [])
@@ -20,6 +22,8 @@ trait PerformsAjaxRequests
     }
 
     /**
+     * @param mixed $uri
+     *
      * @return \Illuminate\Testing\TestResponse
      */
     protected function ajaxGet($uri, array $data = [], array $headers = [])
@@ -30,6 +34,8 @@ trait PerformsAjaxRequests
     }
 
     /**
+     * @param mixed $uri
+     *
      * @return \Illuminate\Testing\TestResponse
      */
     protected function ajaxPut($uri, array $data = [], array $headers = [])
@@ -40,6 +46,8 @@ trait PerformsAjaxRequests
     }
 
     /**
+     * @param mixed $uri
+     *
      * @return \Illuminate\Testing\TestResponse
      */
     protected function ajaxDelete($uri, array $data = [], array $headers = [])

@@ -136,6 +136,7 @@ class ArticleRepository
             ->where('id', '!=', $article->id)
             ->orderBy('created_at', 'desc')
             ->limit($limit)
-            ->get();
+            ->get()
+        ;
     }
 }

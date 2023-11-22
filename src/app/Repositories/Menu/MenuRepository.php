@@ -84,6 +84,7 @@ class MenuRepository
 
         return DB::table('menus_zones')
             ->where('zone_id', $zoneID)
-            ->exists();
+            ->exists()
+        ;
     }
 }
