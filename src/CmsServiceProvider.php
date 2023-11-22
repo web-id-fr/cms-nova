@@ -113,9 +113,6 @@ class CmsServiceProvider extends ServiceProvider
             __DIR__ . '/../publish/config/translatable.php' => config_path('translatable.php'),
             __DIR__ . '/../publish/config/components.php' => config_path('components.php'),
             __DIR__ . '/../publish/config/cms.php' => config_path('cms.php'),
-            __DIR__ . '/../publish/Makefile' => base_path('Makefile'),
-            __DIR__ . '/../publish/phpcs.xml' => base_path('phpcs.xml'),
-            __DIR__ . '/../publish/phpstan.neon' => base_path('phpstan.neon'),
         ], 'config');
     }
 
