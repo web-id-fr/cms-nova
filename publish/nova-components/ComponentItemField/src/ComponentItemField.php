@@ -2,11 +2,9 @@
 
 namespace Webid\ComponentItemField;
 
-use App\Models\Page;
 use App\Services\ComponentsService;
 use Laravel\Nova\Fields\Field;
 use Laravel\Nova\Http\Requests\NovaRequest;
-use Webid\CmsNova\App\Models\Components\BreadcrumbComponent;
 
 class ComponentItemField extends Field
 {
@@ -47,23 +45,12 @@ class ComponentItemField extends Field
         $components = $request[$requestAttribute];
         $components = collect(json_decode($components, true));
 
-        $breadcrumbComponentIds = [];
-
         foreach ($components as $key => $component) {
             switch ($component['component_type']) {
-                case BreadcrumbComponent::class:
-                    $breadcrumbComponentIds[$component['id']] = ['order' => (int) $key + 1];
-
+                default:
                     break;
             }
         }
-
-        Page::saved(function ($model) use (
-            $breadcrumbComponentIds
-        ) {
-            // @var Template $model
-            $model->breadcrumbComponents()->sync($breadcrumbComponentIds);
-        });
     }
 
     /**

@@ -3,7 +3,6 @@
 namespace Webid\CmsNova\App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
-use Illuminate\Support\Facades\App;
 use Webid\CmsNova\App\Http\Resources\Components\ComponentResource;
 
 class TemplateResource extends JsonResource
@@ -32,7 +31,6 @@ class TemplateResource extends JsonResource
             'meta_keywords' => $this->resource->meta_keywords,
             'items' => ComponentResource::collection($this->resource->related)->resolve(),
             'menu_description' => $this->resource->menu_description,
-            'breadcrumb' => $this->resource->getBreadcrumb(App::getLocale()),
             'contain_article_list' => (bool) $this->resource->contains_articles_list,
         ];
     }

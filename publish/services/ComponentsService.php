@@ -3,8 +3,6 @@
 namespace App\Services;
 
 use Illuminate\Support\Collection;
-use Webid\CmsNova\App\Models\Components\BreadcrumbComponent;
-use Webid\CmsNova\App\Repositories\Components\BreadcrumbComponentRepository;
 
 class ComponentsService
 {

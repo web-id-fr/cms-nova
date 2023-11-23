@@ -1,8 +1,5 @@
 <?php
 
-use Webid\CmsNova\App\Http\Resources\Components\BreadcrumbComponentResource;
-use Webid\CmsNova\App\Models\Components\BreadcrumbComponent;
-
 /*
 |--------------------------------------------------------------------------
 | Components config

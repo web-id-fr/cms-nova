@@ -2,10 +2,8 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Relations\MorphToMany;
 use Illuminate\Support\Collection;
 use Webid\CmsNova\App\Models\BaseTemplate;
-use Webid\CmsNova\App\Models\Components\BreadcrumbComponent;
 
 class Page extends BaseTemplate
 {
