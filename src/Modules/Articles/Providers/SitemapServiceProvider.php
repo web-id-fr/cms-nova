@@ -4,7 +4,7 @@ namespace Webid\CmsNova\Modules\Articles\Providers;
 
 use Illuminate\Support\Arr;
 use Illuminate\Support\ServiceProvider;
-use Webid\CmsNova\App\Repositories\TemplateRepository;
+use Webid\CmsNova\App\Repositories\PageRepository;
 use Webid\CmsNova\App\Services\LanguageService;
 use Webid\CmsNova\App\Services\Sitemap\SitemapGenerator;
 use Webid\CmsNova\App\Services\Sitemap\SitemapUrl;
@@ -18,14 +18,14 @@ class SitemapServiceProvider extends ServiceProvider
     private readonly SitemapGenerator $sitemap;
     private readonly ArticleRepository $articleRepository;
     private readonly ArticleCategoryRepository $categoryRepository;
-    private readonly TemplateRepository $templateRepository;
+    private readonly PageRepository $templateRepository;
 
     public function boot(
         SitemapGenerator $sitemap,
         ArticleRepository $articleRepository,
         ArticleCategoryRepository $categoryRepository,
         LanguageService $languageService,
-        TemplateRepository $templateRepository
+        PageRepository $templateRepository
     ) {
         $this->sitemap = $sitemap;
         $this->articleRepository = $articleRepository;

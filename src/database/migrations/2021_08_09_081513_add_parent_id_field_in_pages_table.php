@@ -10,9 +10,9 @@ return new class() extends Migration {
      */
     public function up()
     {
-        Schema::table('templates', function (Blueprint $table) {
+        Schema::table('pages', function (Blueprint $table) {
             $table->unsignedBigInteger('parent_page_id')->nullable();
-            $table->foreign('parent_page_id')->references('id')->on('templates')->onDelete('set null');
+            $table->foreign('parent_page_id')->references('id')->on('pages')->onDelete('set null');
         });
     }
 
@@ -21,8 +21,8 @@ return new class() extends Migration {
      */
     public function down()
     {
-        Schema::table('templates', function (Blueprint $table) {
-            $table->dropForeign('templates_parent_page_id_foreign');
+        Schema::table('pages', function (Blueprint $table) {
+            $table->dropForeign('pages_parent_page_id_foreign');
             $table->dropColumn('parent_page_id');
         });
     }

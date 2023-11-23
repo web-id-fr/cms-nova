@@ -2,7 +2,7 @@
 
 namespace Webid\CmsNova\Tests\Feature;
 
-use App\Models\Template;
+use App\Models\Page;
 use Illuminate\Support\Facades\DB;
 use Webid\CmsNova\App\Models\Menu\Menu;
 use Webid\CmsNova\App\Models\Menu\MenuCustomItem;
@@ -33,7 +33,7 @@ class MenuServiceTest extends TestCase
         $menu = Menu::factory()->create(['title' => ['fr' => 'mon super menu']]);
 
         // On crée un premier item + sous-menu
-        $parent_template = Template::factory()->create(['id' => 1]);
+        $parent_template = Page::factory()->create(['id' => 1]);
         $parent_menu_item_1 = MenuItem::factory()
             ->hasItem($parent_template)
             ->forMenu($menu)
@@ -56,7 +56,7 @@ class MenuServiceTest extends TestCase
         ;
 
         $child_menu_item_on_parent_2 = MenuItem::factory()
-            ->hasItem(Template::factory()->create(['id' => 2]))
+            ->hasItem(Page::factory()->create(['id' => 2]))
             ->hasParent($parent_custom_item)
             ->forMenu($menu)
             ->create()
@@ -109,7 +109,7 @@ class MenuServiceTest extends TestCase
         $menu_1 = Menu::factory()->create(['title' => ['fr' => 'menu 1']]);
 
         // On crée un élément & un sous-élément
-        $parent_template = Template::factory()->create(['id' => 1]);
+        $parent_template = Page::factory()->create(['id' => 1]);
         $parent_menu_item_1 = MenuItem::factory()
             ->hasItem($parent_template)
             ->forMenu($menu_1)

@@ -10,11 +10,11 @@ return new class() extends Migration {
      */
     public function up()
     {
-        Schema::table('popin_template', function (Blueprint $table) {
-            $table->dropForeign('popin_template_popin_id_foreign');
-            $table->dropForeign('popin_template_template_id_foreign');
+        Schema::table('popin_page', function (Blueprint $table) {
+            $table->dropForeign('popin_page_popin_id_foreign');
+            $table->dropForeign('popin_page_page_id_foreign');
             $table->foreign('popin_id')->references('id')->on('popins')->onDelete('cascade');
-            $table->foreign('template_id')->references('id')->on('templates')->onDelete('cascade');
+            $table->foreign('page_id')->references('id')->on('pages')->onDelete('cascade');
         });
     }
 
@@ -23,11 +23,11 @@ return new class() extends Migration {
      */
     public function down()
     {
-        Schema::table('popin_template', function (Blueprint $table) {
-            $table->dropForeign('popin_template_popin_id_foreign');
-            $table->dropForeign('popin_template_template_id_foreign');
+        Schema::table('popin_page', function (Blueprint $table) {
+            $table->dropForeign('popin_page_popin_id_foreign');
+            $table->dropForeign('popin_page_page_id_foreign');
             $table->foreign('popin_id')->references('id')->on('popins');
-            $table->foreign('template_id')->references('id')->on('templates');
+            $table->foreign('page_id')->references('id')->on('pages');
         });
     }
 };

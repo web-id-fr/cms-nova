@@ -10,8 +10,11 @@ return new class() extends Migration {
      */
     public function up()
     {
-        Schema::table('templates', function (Blueprint $table) {
-            $table->longText('menu_description')->nullable(true);
+        Schema::table('pages', function (Blueprint $table) {
+            $table->boolean('contains_articles_list')
+                ->after('homepage')
+                ->default(false)
+            ;
         });
     }
 
@@ -20,8 +23,8 @@ return new class() extends Migration {
      */
     public function down()
     {
-        Schema::table('templates', function (Blueprint $table) {
-            $table->longText('menu_description')->nullable(false)->change();
+        Schema::table('pages', function (Blueprint $table) {
+            $table->dropColumn('contains_articles_list');
         });
     }
 };

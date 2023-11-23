@@ -4,14 +4,14 @@ namespace Webid\CmsNova\App\Services\Sitemap;
 
 use Spatie\Sitemap\Sitemap;
 use Spatie\Sitemap\Tags\Url;
-use Webid\CmsNova\App\Repositories\TemplateRepository;
+use Webid\CmsNova\App\Repositories\PageRepository;
 
 class SitemapGenerator
 {
     /** @var array|\Closure[] */
     protected array $closures;
 
-    public function __construct(private TemplateRepository $templateRepository)
+    public function __construct(private PageRepository $templateRepository)
     {
         $this->closures = [];
     }

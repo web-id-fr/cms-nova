@@ -2,7 +2,7 @@
 
 namespace Webid\MenuItemField;
 
-use App\Models\Template;
+use App\Models\Page;
 use Illuminate\Support\Collection;
 use Laravel\Nova\Fields\Field;
 use Laravel\Nova\Fields\SupportsDependentFields;
@@ -10,7 +10,7 @@ use Laravel\Nova\Http\Requests\NovaRequest;
 use Webid\CmsNova\App\Models\Menu\Menu;
 use Webid\CmsNova\App\Models\Menu\MenuCustomItem;
 use Webid\CmsNova\App\Repositories\Menu\MenuCustomItemRepository;
-use Webid\CmsNova\App\Repositories\TemplateRepository;
+use Webid\CmsNova\App\Repositories\PageRepository;
 
 class MenuItemField extends Field
 {
@@ -29,7 +29,7 @@ class MenuItemField extends Field
     public function __construct(string $name, ?string $attribute = null, callable $resolveCallback = null)
     {
         $menuCustomItemRepository = app()->make(MenuCustomItemRepository::class);
-        $templateRepository = app()->make(TemplateRepository::class);
+        $templateRepository = app()->make(PageRepository::class);
         $allItems = collect();
 
         // MENU-CUSTOM-ITEM
@@ -41,7 +41,7 @@ class MenuItemField extends Field
 
         // TEMPLATE
         $allTemplates = $templateRepository->getPublishedTemplates();
-        $allTemplates = $this->mapItems($allTemplates, Template::class);
+        $allTemplates = $this->mapItems($allTemplates, Page::class);
         foreach ($allTemplates as $template) {
             $allItems->push($template);
         }
@@ -150,7 +150,7 @@ class MenuItemField extends Field
                 'parent_type' => $plainItem->parentType,
             ];
 
-            if (Template::class == $plainItem->menuableType) {
+            if (Page::class == $plainItem->menuableType) {
                 $templatesToSync[$plainItem->menuableId] = $dataToSync;
             } else {
                 $customItemsToSync[$plainItem->menuableId] = $dataToSync;

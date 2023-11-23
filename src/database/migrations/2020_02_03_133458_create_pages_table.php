@@ -10,7 +10,7 @@ return new class() extends Migration {
      */
     public function up()
     {
-        Schema::create('templates', function (Blueprint $table) {
+        Schema::create('pages', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->longText('title');
             $table->longText('slug')->nullable();
@@ -33,6 +33,6 @@ return new class() extends Migration {
      */
     public function down()
     {
-        Schema::dropIfExists('templates');
+        Schema::dropIfExists('pages');
     }
 };

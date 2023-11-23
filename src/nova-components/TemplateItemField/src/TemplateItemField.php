@@ -4,7 +4,7 @@ namespace Webid\TemplateItemField;
 
 use Laravel\Nova\Fields\Field;
 use Laravel\Nova\Http\Requests\NovaRequest;
-use Webid\CmsNova\App\Repositories\TemplateRepository;
+use Webid\CmsNova\App\Repositories\PageRepository;
 
 class TemplateItemField extends Field
 {
@@ -20,7 +20,7 @@ class TemplateItemField extends Field
      */
     public function __construct(string $name, ?string $attribute = null, callable $resolveCallback = null)
     {
-        $templateRepository = app()->make(TemplateRepository::class);
+        $templateRepository = app()->make(PageRepository::class);
 
         $allField = $templateRepository->getPublishedTemplates();
 

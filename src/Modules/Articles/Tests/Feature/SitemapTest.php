@@ -8,7 +8,7 @@ use Webid\CmsNova\Modules\Articles\Tests\ArticlesTestCase;
 use Webid\CmsNova\Modules\Articles\Tests\Helpers\ArticleCategoryCreator;
 use Webid\CmsNova\Modules\Articles\Tests\Helpers\ArticleCreator;
 use Webid\CmsNova\Tests\Helpers\Traits\LanguageCreator;
-use Webid\CmsNova\Tests\Helpers\Traits\TemplateCreator;
+use Webid\CmsNova\Tests\Helpers\Traits\PageCreator;
 
 /**
  * @internal
@@ -18,7 +18,7 @@ class SitemapTest extends ArticlesTestCase
     use ArticleCategoryCreator;
     use ArticleCreator;
     use LanguageCreator;
-    use TemplateCreator;
+    use PageCreator;
 
     public function setUp(): void
     {

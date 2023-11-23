@@ -10,11 +10,8 @@ return new class() extends Migration {
      */
     public function up()
     {
-        Schema::table('templates', function (Blueprint $table) {
-            $table->boolean('contains_articles_list')
-                ->after('homepage')
-                ->default(false)
-            ;
+        Schema::table('pages', function (Blueprint $table) {
+            $table->dropColumn('breadcrumb');
         });
     }
 
@@ -23,8 +20,8 @@ return new class() extends Migration {
      */
     public function down()
     {
-        Schema::table('templates', function (Blueprint $table) {
-            $table->dropColumn('contains_articles_list');
+        Schema::table('pages', function (Blueprint $table) {
+            $table->longText('breadcrumb')->nullable();
         });
     }
 };

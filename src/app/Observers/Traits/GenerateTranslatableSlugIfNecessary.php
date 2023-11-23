@@ -3,13 +3,13 @@
 namespace Webid\CmsNova\App\Observers\Traits;
 
 use Illuminate\Support\Str;
-use Webid\CmsNova\App\Repositories\TemplateRepository;
+use Webid\CmsNova\App\Repositories\PageRepository;
 use Webid\CmsNova\App\Services\LanguageService;
 use Webid\CmsNova\Modules\Articles\Repositories\ArticleRepository;
 
 trait GenerateTranslatableSlugIfNecessary
 {
-    protected ArticleRepository|TemplateRepository $repository;
+    protected ArticleRepository|PageRepository $repository;
 
     protected function generateMissingSlugs(array $originalSlug, array $value, array $titles): array
     {

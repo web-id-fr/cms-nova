@@ -2,7 +2,7 @@
 
 namespace Webid\CmsNova\App\Nova;
 
-use App\Models\Template as TemplateModel;
+use App\Models\Page as PageModel;
 use Carbon\Carbon;
 use Eminiarts\Tabs\Tab;
 use Eminiarts\Tabs\Tabs;
@@ -18,18 +18,18 @@ use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use Laravel\Nova\Resource;
 use Oneduo\NovaFileManager\FileManager;
-use Webid\CmsNova\App\Repositories\TemplateRepository;
+use Webid\CmsNova\App\Repositories\PageRepository;
 use Webid\CmsNova\App\Rules\TranslatableMax;
 use Webid\CmsNova\App\Rules\TranslatableSlug;
 use Webid\ComponentItemField\ComponentItemField;
 use Webid\PageUrlItemField\PageUrlItemField;
 use Webid\TranslatableItemField\Translatable;
 
-class Template extends Resource
+class Page extends Resource
 {
     use HasTabs;
 
-    /** @var TemplateModel */
+    /** @var PageModel */
     public $resource;
 
     /**
@@ -37,7 +37,7 @@ class Template extends Resource
      *
      * @var string
      */
-    public static $model = TemplateModel::class;
+    public static $model = PageModel::class;
 
     /**
      * The single value that should be used to represent the resource when being displayed.
@@ -72,7 +72,7 @@ class Template extends Resource
      */
     public static function label()
     {
-        return __('Templates');
+        return __('Pages');
     }
 
     /**
@@ -123,8 +123,8 @@ class Template extends Resource
             return $this->resource->parent_page_id;
         }
 
-        $templateRepository = app(TemplateRepository::class);
-        $homepageId = $templateRepository->getIdForHomepage();
+        $pageRepository = app(PageRepository::class);
+        $homepageId = $pageRepository->getIdForHomepage();
 
         if (! empty($homepageId) && ! $this->resource->homepage) {
             return $homepageId->getKey();
@@ -135,7 +135,7 @@ class Template extends Resource
 
     public function isPublished(): bool
     {
-        return TemplateModel::_STATUS_PUBLISHED == $this->resource->status
+        return PageModel::_STATUS_PUBLISHED == $this->resource->status
             && ($this->resource->publish_at <= Carbon::now() || null == $this->resource->publish_at);
     }
 
@@ -177,14 +177,14 @@ class Template extends Resource
                 ->hideWhenUpdating()
                 ->hideWhenCreating(),
 
-            BelongsTo::make(__('Parent page'), 'parent', Template::class)
+            BelongsTo::make(__('Parent page'), 'parent', Page::class)
                 ->withMeta([
                     'belongsToId' => $this->getParentPageId(),
                 ])->nullable()
                 ->searchable(),
 
             Select::make(__('Status'), 'status')
-                ->options(TemplateModel::statusLabels())
+                ->options(PageModel::statusLabels())
                 ->displayUsingLabels()
                 ->rules('integer', 'required')
                 ->hideFromIndex(),
@@ -209,7 +209,7 @@ class Template extends Resource
     protected function seoFields(): array
     {
         return [
-            BelongsTo::make(__('Reference page'), 'referencePage', Template::class)
+            BelongsTo::make(__('Reference page'), 'referencePage', Page::class)
                 ->nullable()
                 ->searchable(),
 

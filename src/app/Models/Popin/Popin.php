@@ -2,7 +2,7 @@
 
 namespace Webid\CmsNova\App\Models\Popin;
 
-use App\Models\Template;
+use App\Models\Page;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Spatie\Translatable\HasTranslations;
@@ -58,6 +58,6 @@ class Popin extends Model
 
     public function templates(): BelongsToMany
     {
-        return $this->belongsToMany(Template::class, 'popin_template');
+        return $this->belongsToMany(Page::class, 'popin_template');
     }
 }

@@ -2,7 +2,7 @@
 
 namespace Webid\CmsNova\App\Models\Menu;
 
-use App\Models\Template;
+use App\Models\Page;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -58,7 +58,7 @@ class Menu extends Model
 
     public function templates(): MorphToMany
     {
-        return $this->morphedByMany(Template::class, 'menuable')
+        return $this->morphedByMany(Page::class, 'menuable')
             ->withPivot('order', 'parent_id', 'parent_type')
             ->with('menus')
             ->orderBy('order')
@@ -84,7 +84,7 @@ class Menu extends Model
         $children = $this->getChildren($templates, $children);
         $children = $this->getChildren($customItems, $children);
 
-        $menuItems = $this->mapItems($templates, $children, Template::class, $menuItems);
+        $menuItems = $this->mapItems($templates, $children, Page::class, $menuItems);
         $menuItems = $this->mapItems($customItems, $children, MenuCustomItem::class, $menuItems);
 
         $menuItems = $menuItems->sortBy(function ($item) {

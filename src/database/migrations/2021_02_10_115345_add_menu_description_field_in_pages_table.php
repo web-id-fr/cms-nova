@@ -10,8 +10,8 @@ return new class() extends Migration {
      */
     public function up()
     {
-        Schema::table('templates', function (Blueprint $table) {
-            $table->boolean('follow')->default(true);
+        Schema::table('pages', function (Blueprint $table) {
+            $table->longText('menu_description')->nullable(true);
         });
     }
 
@@ -20,8 +20,8 @@ return new class() extends Migration {
      */
     public function down()
     {
-        Schema::table('templates', function (Blueprint $table) {
-            $table->dropColumn('follow');
+        Schema::table('pages', function (Blueprint $table) {
+            $table->longText('menu_description')->nullable(false)->change();
         });
     }
 };

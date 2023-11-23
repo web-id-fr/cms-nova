@@ -5,12 +5,12 @@ namespace Webid\CmsNova\App\Services;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Arr;
 use Webid\CmsNova\App\Models\BaseTemplate;
-use Webid\CmsNova\App\Repositories\TemplateRepository;
+use Webid\CmsNova\App\Repositories\PageRepository;
 
-class TemplateService
+class PageService
 {
     public function __construct(
-        private TemplateRepository $templateRepository,
+        private PageRepository $templateRepository,
         private LanguageService $languageService
     ) {
     }

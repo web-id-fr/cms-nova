@@ -2,7 +2,7 @@
 
 namespace Webid\ComponentItemField;
 
-use App\Models\Template;
+use App\Models\Page;
 use App\Services\ComponentsService;
 use Laravel\Nova\Fields\Field;
 use Laravel\Nova\Http\Requests\NovaRequest;
@@ -58,7 +58,7 @@ class ComponentItemField extends Field
             }
         }
 
-        Template::saved(function ($model) use (
+        Page::saved(function ($model) use (
             $breadcrumbComponentIds
         ) {
             // @var Template $model

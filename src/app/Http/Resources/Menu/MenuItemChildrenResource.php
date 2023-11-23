@@ -2,7 +2,7 @@
 
 namespace Webid\CmsNova\App\Http\Resources\Menu;
 
-use App\Models\Template;
+use App\Models\Page;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Webid\CmsNova\App\Models\Menu\MenuCustomItem;
 use Webid\CmsNova\Modules\Form\Http\Resources\FormResource;
@@ -41,7 +41,7 @@ class MenuItemChildrenResource extends JsonResource
             );
         }
 
-        if (Template::class == $this->resource->menuable_type) {
+        if (Page::class == $this->resource->menuable_type) {
             $resource = array_merge(
                 $this->templatesExclusiveFields(),
                 $resource
@@ -69,7 +69,7 @@ class MenuItemChildrenResource extends JsonResource
 
     private function templatesExclusiveFields(): array
     {
-        if (Template::class == $this->resource->menuable_type) {
+        if (Page::class == $this->resource->menuable_type) {
             $full_path = $this->resource->menuable->getFullPath(app()->getLocale());
         } else {
             $full_path = '';

@@ -2,7 +2,7 @@
 
 namespace Webid\CmsNova\App\Models\Components;
 
-use App\Models\Template;
+use App\Models\Page;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
@@ -46,7 +46,7 @@ class NewsletterComponent extends Model
 
     public function templates(): MorphToMany
     {
-        return $this->morphToMany(Template::class, 'component')
+        return $this->morphToMany(Page::class, 'component')
             ->withPivot('order')
         ;
     }

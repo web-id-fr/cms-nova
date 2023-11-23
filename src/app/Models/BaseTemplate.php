@@ -2,7 +2,7 @@
 
 namespace Webid\CmsNova\App\Models;
 
-use App\Models\Template;
+use App\Models\Page;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -111,7 +111,7 @@ abstract class BaseTemplate extends Model implements Menuable
 
     public function parent(): BelongsTo
     {
-        return $this->belongsTo(Template::class, $this->getParentKeyName());
+        return $this->belongsTo(Page::class, $this->getParentKeyName());
     }
 
     public function ancestorsAndSelf(): Collection
@@ -176,8 +176,8 @@ abstract class BaseTemplate extends Model implements Menuable
 
     public function referencePage(): BelongsTo
     {
-        return $this->belongsTo(Template::class)
-            ->where('status', Template::_STATUS_PUBLISHED)
+        return $this->belongsTo(Page::class)
+            ->where('status', Page::_STATUS_PUBLISHED)
         ;
     }
 
@@ -206,7 +206,7 @@ abstract class BaseTemplate extends Model implements Menuable
         });
     }
 
-    private function collectAncestors(Template $parent, array $ancestors = []): array
+    private function collectAncestors(Page $parent, array $ancestors = []): array
     {
         $ancestors[] = $parent;
 

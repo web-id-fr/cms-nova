@@ -11,19 +11,19 @@ use Illuminate\View\View;
 use Webid\CmsNova\App\Http\Resources\Popin\PopinResource;
 use Webid\CmsNova\App\Http\Resources\TemplateResource;
 use Webid\CmsNova\App\Repositories\Popin\PopinRepository;
-use Webid\CmsNova\App\Repositories\TemplateRepository;
+use Webid\CmsNova\App\Repositories\PageRepository;
 use Webid\CmsNova\App\Services\LanguageService;
-use Webid\CmsNova\App\Services\TemplateService;
+use Webid\CmsNova\App\Services\PageService;
 
-class TemplateController extends BaseController
+class PageController extends BaseController
 {
     protected array $extraElementsForPage;
 
     public function __construct(
-        private readonly TemplateRepository $templateRepository,
+        private readonly PageRepository $pageRepository,
         private readonly PopinRepository $popinRepository,
         private readonly LanguageService $languageService,
-        private readonly TemplateService $templateService
+        private readonly PageService $pageService
     ) {
         $this->extraElementsForPage = [];
     }
@@ -31,8 +31,8 @@ class TemplateController extends BaseController
     public function index(Request $request): null|Factory|View
     {
         try {
-            $slug = $this->templateRepository->getSlugForHomepage();
-            $template = $this->templateRepository->getBySlugWithRelations(
+            $slug = $this->pageRepository->getSlugForHomepage();
+            $template = $this->pageRepository->getBySlugWithRelations(
                 $slug->slug,
                 app()->getLocale()
             );
@@ -73,7 +73,7 @@ class TemplateController extends BaseController
             $slug = end($slugs);
             $requestPage = request()->input('page');
 
-            $template = $this->templateRepository->getBySlugWithRelations(
+            $template = $this->pageRepository->getBySlugWithRelations(
                 $slug,
                 app()->getLocale()
             );
@@ -144,7 +144,7 @@ class TemplateController extends BaseController
             'og_description' => data_get($data, 'opengraph_description'),
             'indexation' => data_get($data, 'indexation'),
             'keywords' => data_get($data, 'meta_keywords'),
-            'canonical' => $this->templateService->getCanonicalUrlFor($template, $queryParams, reset($slugs)),
+            'canonical' => $this->pageService->getCanonicalUrlFor($template, $queryParams, reset($slugs)),
         ];
     }
 }

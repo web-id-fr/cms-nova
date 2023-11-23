@@ -26,7 +26,7 @@ class MenuTest extends MenuItemFieldTestCase
 
         $first_parent_item = [
             'id' => 1,
-            'type' => 'App\\Models\\Template',
+            'type' => 'App\\Models\\Page',
         ];
         $first_child_item = [
             'id' => 3,
@@ -224,11 +224,11 @@ class MenuTest extends MenuItemFieldTestCase
                                             'parent_page_id' => 1,
                                             'reference_page_id' => null,
                                             'children' => [],
-                                            'menuable_type' => 'App\\Models\\Template',
+                                            'menuable_type' => 'App\\Models\\Page',
                                             'isSelected' => true,
                                         ],
                                     ],
-                                    'menuable_type' => 'App\\Models\\Template',
+                                    'menuable_type' => 'App\\Models\\Page',
                                     'isSelected' => true,
                                 ],
                             ],
@@ -311,11 +311,11 @@ class MenuTest extends MenuItemFieldTestCase
                                     'parent_page_id' => null,
                                     'reference_page_id' => null,
                                     'children' => [],
-                                    'menuable_type' => 'App\\Models\\Template',
+                                    'menuable_type' => 'App\\Models\\Page',
                                     'isSelected' => true,
                                 ],
                             ],
-                            'menuable_type' => 'App\\Models\\Template',
+                            'menuable_type' => 'App\\Models\\Page',
                             'isSelected' => true,
                         ],
                     ],
@@ -333,7 +333,7 @@ class MenuTest extends MenuItemFieldTestCase
         $this->assertDatabaseHas('menuables', [
             'menu_id' => $menu->getKey(),
             'menuable_id' => 1,
-            'menuable_type' => 'App\\Models\\Template',
+            'menuable_type' => 'App\\Models\\Page',
             'parent_id' => 2,
             'parent_type' => 'Webid\\CmsNova\\App\\Models\\Menu\\MenuCustomItem',
         ]);
@@ -361,23 +361,23 @@ class MenuTest extends MenuItemFieldTestCase
         $this->assertDatabaseHas('menuables', [
             'menu_id' => $menu->getKey(),
             'menuable_id' => 5,
-            'menuable_type' => 'App\\Models\\Template',
+            'menuable_type' => 'App\\Models\\Page',
             'parent_id' => 12,
-            'parent_type' => 'App\\Models\\Template',
+            'parent_type' => 'App\\Models\\Page',
         ]);
         $this->assertDatabaseHas('menuables', [
             'menu_id' => $menu->getKey(),
             'menuable_id' => 12,
-            'menuable_type' => 'App\\Models\\Template',
+            'menuable_type' => 'App\\Models\\Page',
             'parent_id' => 3,
             'parent_type' => 'Webid\\CmsNova\\App\\Models\\Menu\\MenuCustomItem',
         ]);
         $this->assertDatabaseHas('menuables', [
             'menu_id' => $menu->getKey(),
             'menuable_id' => 25,
-            'menuable_type' => 'App\\Models\\Template',
+            'menuable_type' => 'App\\Models\\Page',
             'parent_id' => 1,
-            'parent_type' => 'App\\Models\\Template',
+            'parent_type' => 'App\\Models\\Page',
         ]);
     }
 }

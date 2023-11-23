@@ -7,7 +7,7 @@ use Illuminate\Support\Collection;
 use Webid\CmsNova\App\Models\BaseTemplate;
 use Webid\CmsNova\App\Models\Components\BreadcrumbComponent;
 
-class Template extends BaseTemplate
+class Page extends BaseTemplate
 {
     public Collection $component_items;
 

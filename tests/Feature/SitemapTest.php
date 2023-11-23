@@ -2,9 +2,9 @@
 
 namespace Webid\CmsNova\Tests\Feature;
 
-use App\Models\Template;
+use App\Models\Page;
 use Carbon\Carbon;
-use Webid\CmsNova\Tests\Helpers\Traits\TemplateCreator;
+use Webid\CmsNova\Tests\Helpers\Traits\PageCreator;
 use Webid\CmsNova\Tests\TestCase;
 
 /**
@@ -12,7 +12,7 @@ use Webid\CmsNova\Tests\TestCase;
  */
 class SitemapTest extends TestCase
 {
-    use TemplateCreator;
+    use PageCreator;
 
     public function setUp(): void
     {
@@ -36,35 +36,35 @@ class SitemapTest extends TestCase
         $this->createTemplate([
             'slug' => ['fr' => 'je-suis-francais'],
             'homepage' => false,
-            'status' => Template::_STATUS_PUBLISHED,
+            'status' => Page::_STATUS_PUBLISHED,
             'publish_at' => now()->subYear(),
             'indexation' => true,
         ]);
         $this->createTemplate([
             'slug' => ['fr' => 'je-ne-suis-pas-indexee'],
             'homepage' => false,
-            'status' => Template::_STATUS_PUBLISHED,
+            'status' => Page::_STATUS_PUBLISHED,
             'publish_at' => now()->subYear(),
             'indexation' => false,
         ]);
         $this->createTemplate([
             'slug' => ['fr' => 'je-ne-suis-pas-publiee'],
             'homepage' => false,
-            'status' => Template::_STATUS_DRAFT,
+            'status' => Page::_STATUS_DRAFT,
             'publish_at' => now()->subYear(),
             'indexation' => true,
         ]);
         $this->createTemplate([
             'slug' => ['fr' => 'je-ne-suis-pas-encore-publiee'],
             'homepage' => false,
-            'status' => Template::_STATUS_PUBLISHED,
+            'status' => Page::_STATUS_PUBLISHED,
             'publish_at' => now()->addYear(),
             'indexation' => true,
         ]);
         $this->createTemplate([
             'slug' => ['fr' => 'je-nai-pas-de-date-de-publication'],
             'homepage' => false,
-            'status' => Template::_STATUS_PUBLISHED,
+            'status' => Page::_STATUS_PUBLISHED,
             'publish_at' => null,
             'indexation' => true,
         ]);
@@ -86,7 +86,7 @@ class SitemapTest extends TestCase
             'slug' => ['fr' => 'homepage'],
             'indexation' => true,
             'publish_at' => now()->subYear(),
-            'status' => Template::_STATUS_PUBLISHED,
+            'status' => Page::_STATUS_PUBLISHED,
         ]);
 
         $xml = $this->generateSitemap();
@@ -102,14 +102,14 @@ class SitemapTest extends TestCase
             'slug' => ['fr' => 'bonjour', 'en' => 'hello', 'es' => 'hola'],
             'indexation' => true,
             'publish_at' => now()->subYear(),
-            'status' => Template::_STATUS_PUBLISHED,
+            'status' => Page::_STATUS_PUBLISHED,
         ]);
         $this->createTemplate([
             'homepage' => false,
             'slug' => ['fr' => 'france', 'en' => 'england', 'es' => 'spain'],
             'indexation' => true,
             'publish_at' => now()->subYear(),
-            'status' => Template::_STATUS_PUBLISHED,
+            'status' => Page::_STATUS_PUBLISHED,
         ]);
 
         $xml = $this->generateSitemap();
@@ -137,7 +137,7 @@ class SitemapTest extends TestCase
             'slug' => ['fr' => 'france', 'en' => 'england', 'it' => ''],
             'indexation' => true,
             'publish_at' => now()->subYear(),
-            'status' => Template::_STATUS_PUBLISHED,
+            'status' => Page::_STATUS_PUBLISHED,
         ]);
 
         $xml = $this->generateSitemap();
@@ -158,7 +158,7 @@ class SitemapTest extends TestCase
             'slug' => ['en' => 'the-slug', 'it' => 'il-slug'],
             'indexation' => true,
             'publish_at' => now()->subYear(),
-            'status' => Template::_STATUS_PUBLISHED,
+            'status' => Page::_STATUS_PUBLISHED,
         ]);
 
         $xml = $this->generateSitemap();

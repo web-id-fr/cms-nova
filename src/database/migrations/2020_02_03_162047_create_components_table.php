@@ -11,7 +11,7 @@ return new class() extends Migration {
     public function up()
     {
         Schema::create('components', function (Blueprint $table) {
-            $table->integer('template_id');
+            $table->integer('page_id');
             $table->integer('component_id');
             $table->string('component_type');
             $table->integer('order');

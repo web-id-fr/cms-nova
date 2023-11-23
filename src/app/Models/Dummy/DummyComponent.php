@@ -2,7 +2,7 @@
 
 namespace Webid\CmsNova\App\Models\Dummy;
 
-use App\Models\Template;
+use App\Models\Page;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
@@ -36,7 +36,7 @@ class DummyComponent extends Model
 
     public function templates(): MorphToMany
     {
-        return $this->morphToMany(Template::class, 'component')
+        return $this->morphToMany(Page::class, 'component')
             ->withPivot('order')
         ;
     }

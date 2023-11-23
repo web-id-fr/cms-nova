@@ -16,7 +16,7 @@ use Oneduo\NovaFileManager\NovaFileManager;
 use Webid\CmsNova\App\Nova\Menu\Menu as MenuModule;
 use Webid\CmsNova\App\Nova\Menu\MenuCustomItem;
 use Webid\CmsNova\App\Nova\Popin\Popin;
-use Webid\CmsNova\App\Nova\Template;
+use Webid\CmsNova\App\Nova\Page;
 use Webid\ComponentTool\ComponentTool;
 use Webid\LanguageTool\LanguageTool;
 use Webid\MenuTool\MenuTool;
@@ -50,7 +50,7 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
 
                 MenuSection::make(__('Pages'), [
                     MenuItem::link(__('List of Components'), '/component-tool'),
-                    MenuItem::resource(Template::class),
+                    MenuItem::resource(Page::class),
                 ])->icon('template')->collapsable(),
 
                 MenuSection::resource(User::class)

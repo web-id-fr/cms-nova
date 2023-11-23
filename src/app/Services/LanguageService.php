@@ -9,15 +9,7 @@ class LanguageService
 {
     public function getUsedLanguage(): array
     {
-        $languageRepository = new LanguageRepository(new Language());
-        $languages = $languageRepository->all();
-        $allPossible = [];
-
-        $languages->each(function ($language) use (&$allPossible) {
-            $allPossible[Language::getLocalByFlag($language->flag)] = $language->name;
-        });
-
-        return $allPossible;
+        return config('translatable.locales');
     }
 
     public function getBrowserDefault(): string

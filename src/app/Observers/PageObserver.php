@@ -2,20 +2,20 @@
 
 namespace Webid\CmsNova\App\Observers;
 
-use App\Models\Template;
+use App\Models\Page;
 use Webid\CmsNova\App\Observers\Traits\GenerateTranslatableSlugIfNecessary;
-use Webid\CmsNova\App\Repositories\TemplateRepository;
+use Webid\CmsNova\App\Repositories\PageRepository;
 
-class TemplateObserver
+class PageObserver
 {
     use GenerateTranslatableSlugIfNecessary;
 
-    public function __construct(private TemplateRepository $templateRepository)
+    public function __construct(private PageRepository $pageRepository)
     {
-        $this->repository = $templateRepository;
+        $this->repository = $pageRepository;
     }
 
-    public function saving(Template $template): void
+    public function saving(Page $template): void
     {
         $titles = $template->getTranslations('title');
         $originalSlug = $template->getOriginal('slug') ?? [];

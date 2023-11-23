@@ -2,20 +2,20 @@
 
 namespace Webid\CmsNova\App\Repositories;
 
-use App\Models\Template;
+use App\Models\Page;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Collection;
 
-class TemplateRepository
+class PageRepository
 {
-    public function __construct(private Template $model)
+    public function __construct(private Page $model)
     {
     }
 
     public function getPublishedTemplates(): mixed
     {
         return $this->model
-            ->where('status', Template::_STATUS_PUBLISHED)
+            ->where('status', Page::_STATUS_PUBLISHED)
             ->with('related.components')
             ->get()
         ;
@@ -38,13 +38,13 @@ class TemplateRepository
         ;
     }
 
-    public function getBySlug(string $slug, string $language): Template
+    public function getBySlug(string $slug, string $language): Page
     {
         $slug = strtolower($slug);
 
         return $this->model
             ->where('slug', 'regexp', "\"{$language}\"[ ]*:[ ]*\"{$slug}\"")
-            ->where('status', Template::_STATUS_PUBLISHED)
+            ->where('status', Page::_STATUS_PUBLISHED)
             ->where(function ($query) {
                 $query->whereNull('publish_at')->orWhere('publish_at', '<=', Carbon::now());
             })
@@ -52,7 +52,7 @@ class TemplateRepository
         ;
     }
 
-    public function getById(int $id): Template
+    public function getById(int $id): Page
     {
         return $this->model
             ->where('id', $id)
@@ -60,13 +60,13 @@ class TemplateRepository
         ;
     }
 
-    public function getBySlugWithRelations(string $slug, string $language): Template
+    public function getBySlugWithRelations(string $slug, string $language): Page
     {
         $slug = strtolower($slug);
 
         return $this->model
             ->where('slug', 'regexp', "\"{$language}\"[ ]*:[ ]*\"{$slug}\"")
-            ->where('status', Template::_STATUS_PUBLISHED)
+            ->where('status', Page::_STATUS_PUBLISHED)
             ->where(function ($query) {
                 $query->whereNull('publish_at')->orWhere('publish_at', '<=', Carbon::now());
             })->with('related.components')
@@ -88,7 +88,7 @@ class TemplateRepository
     public function getPublishedAndIndexedTemplates(): Collection
     {
         return $this->model
-            ->where('status', Template::_STATUS_PUBLISHED)
+            ->where('status', Page::_STATUS_PUBLISHED)
             ->where(function ($query) {
                 $query->orWhere('publish_at', '<', now())
                     ->orWhereNull('publish_at')
@@ -100,12 +100,12 @@ class TemplateRepository
     }
 
     /**
-     * @return Collection<Template>
+     * @return Collection<Page>
      */
     public function getPublicPagesContainingArticlesLists(): Collection
     {
         return $this->model
-            ->where('status', Template::_STATUS_PUBLISHED)
+            ->where('status', Page::_STATUS_PUBLISHED)
             ->where(function ($query) {
                 $query->orWhere('publish_at', '<', now())
                     ->orWhereNull('publish_at')

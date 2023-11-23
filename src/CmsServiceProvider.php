@@ -2,7 +2,7 @@
 
 namespace Webid\CmsNova;
 
-use App\Models\Template as TemplateModel;
+use App\Models\Page as PageModel;
 use Illuminate\Cookie\Middleware\EncryptCookies;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Http\Resources\Json\JsonResource;
@@ -24,8 +24,8 @@ use Webid\CmsNova\App\Http\Middleware\RedirectToHomepage;
 use Webid\CmsNova\App\Nova\Menu\Menu;
 use Webid\CmsNova\App\Nova\Menu\MenuCustomItem;
 use Webid\CmsNova\App\Nova\Popin\Popin;
-use Webid\CmsNova\App\Nova\Template;
-use Webid\CmsNova\App\Observers\TemplateObserver;
+use Webid\CmsNova\App\Nova\Page;
+use Webid\CmsNova\App\Observers\PageObserver;
 use Webid\CmsNova\App\Providers\ViewServiceProvider;
 use Webid\CmsNova\App\Services\DynamicResource;
 use Webid\CmsNova\App\Services\LanguageService;
@@ -50,7 +50,7 @@ class CmsServiceProvider extends ServiceProvider
         $this->publishProvider();
         $this->publishViews();
         $this->publishPublicFiles();
-        $this->publishTemplateModel();
+        $this->publishPageModel();
         $this->publishNovaComponents();
         $this->publishTranslations();
         $this->publishServices();
@@ -65,12 +65,12 @@ class CmsServiceProvider extends ServiceProvider
 
         Nova::serving(function (ServingNova $event) {
             // Model Observers
-            TemplateModel::observe(TemplateObserver::class);
+            PageModel::observe(PageObserver::class);
         });
 
         $this->app->booted(function () {
             Nova::resources([
-                Template::class,
+                Page::class,
                 Popin::class,
                 Menu::class,
                 MenuCustomItem::class,
@@ -147,10 +147,10 @@ class CmsServiceProvider extends ServiceProvider
         ], 'nova-components');
     }
 
-    protected function publishTemplateModel(): void
+    protected function publishPageModel(): void
     {
         $this->publishes([
-            __DIR__ . '/../publish/app/models/Template.php' => base_path('/app/Models/Template.php'),
+            __DIR__ . '/../publish/app/models/Page.php' => base_path('/app/Models/Page.php'),
         ], 'template-model');
     }
 

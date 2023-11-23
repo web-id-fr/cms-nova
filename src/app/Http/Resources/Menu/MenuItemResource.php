@@ -2,7 +2,7 @@
 
 namespace Webid\CmsNova\App\Http\Resources\Menu;
 
-use App\Models\Template;
+use App\Models\Page;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Webid\CmsNova\App\Models\Menu\MenuCustomItem;
 use Webid\CmsNova\App\Models\Menu\MenuItem;
@@ -27,8 +27,8 @@ class MenuItemResource extends JsonResource
         $children = $menuable->childrenForMenu($this->resource->menu_id);
         $full_path = '';
 
-        if (Template::class == $this->resource->menuable_type) {
-            /** @var Template $template */
+        if (Page::class == $this->resource->menuable_type) {
+            /** @var Page $template */
             $template = $this->resource->menuable;
             $full_path = $template->getFullPath(app()->getLocale());
         }
@@ -54,7 +54,7 @@ class MenuItemResource extends JsonResource
             ]),
 
             // Champs exclusifs aux Pages
-            $this->mergeWhen(Template::class == $this->resource->menuable_type, [
+            $this->mergeWhen(Page::class == $this->resource->menuable_type, [
                 'slug' => $menuable->slug,
                 'full_path' => "/{$full_path}",
             ]),
