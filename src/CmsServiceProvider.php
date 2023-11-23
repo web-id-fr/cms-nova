@@ -54,7 +54,6 @@ class CmsServiceProvider extends ServiceProvider
         $this->publishNovaComponents();
         $this->publishTranslations();
         $this->publishServices();
-        $this->publishSeeders();
         $this->publishCommands();
 
         $this->registerAliasMiddleware($router);
@@ -170,16 +169,6 @@ class CmsServiceProvider extends ServiceProvider
             ),
             __DIR__ . '/../publish/services/ComponentsService.php' => base_path('/app/Services/ComponentsService.php'),
         ], 'services');
-    }
-
-    protected function publishSeeders(): void
-    {
-        $this->publishes([
-            __DIR__ . '/../publish/database/seeders/LanguageSeeder.php' => database_path('seeders/LanguageSeeder.php'),
-            __DIR__ . '/../publish/database/seeders/Components/BreadcrumbComponentSeeder.php' => database_path(
-                'seeders/Components/BreadcrumbComponentSeeder.php'
-            ),
-        ], 'seeders');
     }
 
     protected function publishCommands(): void
