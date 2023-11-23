@@ -180,7 +180,6 @@ You can change the design of the mail template but do not delete or modify the e
 
 ```bash
 public/cms/images/components/gallery_component.png
-public/cms/images/components/newsletter_component.png
 ```
 
 ---

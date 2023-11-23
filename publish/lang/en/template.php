@@ -6,6 +6,5 @@ return [
     ],
     'components' => [
         'Gallery component' => 'Gallery',
-        'Newsletter component' => 'Newsletter',
     ],
 ];
