@@ -35,30 +35,23 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
 
         Nova::mainMenu(function (Request $request, Menu $menu) {
             return [
-                MenuSection::make('Dashboard')
+                MenuSection::make(__('Dashboard'))
                     ->path('/dashboards/main'),
 
                 MenuSection::make(__('Filemanager'))
                     ->path('/nova-file-manager')
                     ->icon('photograph'),
 
-                MenuSection::make(__('Languages'))
-                    ->path('/language-tool')
-                    ->icon('translate'),
-
-                MenuSection::make('Menu', [
+                MenuSection::make(__('Menu'), [
                     MenuItem::resource(MenuModule::class),
                     MenuItem::resource(MenuCustomItem::class),
                     MenuItem::link(__('Configuration'), '/menu-tool'),
                 ])->icon('menu')->collapsable(),
 
-                MenuSection::make('Templates', [
+                MenuSection::make(__('Pages'), [
                     MenuItem::link(__('List of Components'), '/component-tool'),
                     MenuItem::resource(Template::class),
                 ])->icon('template')->collapsable(),
-
-                MenuSection::resource(Popin::class)
-                    ->icon('bell'),
 
                 MenuSection::resource(User::class)
                     ->icon('users'),

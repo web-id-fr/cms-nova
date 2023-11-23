@@ -21,11 +21,5 @@ use Webid\CmsNova\App\Models\Components\BreadcrumbComponent;
 */
 
 return [
-    BreadcrumbComponent::class => [
-        'title' => 'Breadcrumb component',
-        'image' => '/cms/images/components/breadcrumb_component.png',
-        'resource' => BreadcrumbComponentResource::class,
-        'view' => 'components/breadcrumb',
-        'display_on_components_list' => false,
-    ],
+
 ];

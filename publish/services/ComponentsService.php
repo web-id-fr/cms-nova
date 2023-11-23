@@ -9,7 +9,6 @@ use Webid\CmsNova\App\Repositories\Components\BreadcrumbComponentRepository;
 class ComponentsService
 {
     private ?Collection $allComponents = null;
-    private BreadcrumbComponentRepository $breadcrumbComponentRepository;
 
     public function getAllComponents(): Collection
     {
@@ -17,22 +16,7 @@ class ComponentsService
             return $this->allComponents;
         }
 
-        $this->allComponents = collect();
-
-        $this->breadcrumbComponentRepository = app(BreadcrumbComponentRepository::class);
-
         $components = collect();
-        $allNewsletterComponents = collect();
-        $codeSnippetComponents = collect();
-        $breadcrumbComponents = collect();
-
-        $this->loadComponents(
-            $this->breadcrumbComponentRepository->getPublishedComponents(),
-            BreadcrumbComponent::class,
-            $breadcrumbComponents
-        );
-
-        $components[config('components.'.BreadcrumbComponent::class.'.title')] = $breadcrumbComponents;
 
         $this->allComponents = $components;
 

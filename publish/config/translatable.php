@@ -12,31 +12,22 @@ return [
 
     /*
      |--------------------------------------------------------------------------
-     | Liste des langues disponibles par tous les sites
+     | All languages list
      |--------------------------------------------------------------------------
      */
 
     'locales' => [
         'en' => 'English',
         'fr' => 'Français',
-        'it' => 'Italiano',
-        'es' => 'Español',
-        'pt' => 'Português',
-        'ja' => '日本語',
-        'zh' => '中文',
-        'ru' => 'Русский',
-        'ar' => 'العربية',
-        'de' => 'Deutsch',
-        'pt-br' => 'Português brasileiro',
     ],
 
     /*
      |--------------------------------------------------------------------------
-     | Liste des langues dont le sens de lecture est Right-To-Left
+     | Right-To-Left languages
      |--------------------------------------------------------------------------
      */
 
     'rtl_locales' => [
-        'ar',
+
     ],
 ];

@@ -11,19 +11,9 @@ class Template extends BaseTemplate
 {
     public Collection $component_items;
 
-    public function breadcrumbComponents(): MorphToMany
-    {
-        return $this->morphedByMany(BreadcrumbComponent::class, 'component')
-            ->withPivot('order')
-            ->orderBy('order')
-        ;
-    }
-
     public function chargeComponents(): void
     {
         $components = collect();
-
-        $this->mapItems($this->breadcrumbComponents, BreadcrumbComponent::class, $components);
 
         $components = $components->sortBy(function ($item) {
             return $item->pivot->order;
