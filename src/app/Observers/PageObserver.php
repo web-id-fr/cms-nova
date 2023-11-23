@@ -15,14 +15,14 @@ class PageObserver
         $this->repository = $pageRepository;
     }
 
-    public function saving(Page $template): void
+    public function saving(Page $page): void
     {
-        $titles = $template->getTranslations('title');
-        $originalSlug = $template->getOriginal('slug') ?? [];
-        $value = $template->getTranslations('slug');
+        $titles = $page->getTranslations('title');
+        $originalSlug = $page->getOriginal('slug') ?? [];
+        $value = $page->getTranslations('slug');
 
         $allSlug = $this->generateMissingSlugs($originalSlug, $value, $titles);
 
-        $template->slug = $allSlug;
+        $page->slug = $allSlug;
     }
 }

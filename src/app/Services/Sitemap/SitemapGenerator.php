@@ -71,7 +71,7 @@ class SitemapGenerator
 
     private function loadPublishedPagesUrls(SitemapUrlCollection $collection): SitemapUrlCollection
     {
-        foreach ($this->templateRepository->getPublishedAndIndexedTemplates() as $template) {
+        foreach ($this->templateRepository->getPublishedAndIndexedPages() as $template) {
             $translatedAttributes = $template->getTranslationsAttribute();
 
             foreach ($translatedAttributes['slug'] as $lang => $slug) {

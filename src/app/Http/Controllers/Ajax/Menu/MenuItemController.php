@@ -20,7 +20,7 @@ class MenuItemController extends BaseController
     public function index(Request $request): JsonResponse
     {
         $allCustomItem = $this->menuCustomItemRepository->all();
-        $allPage = $this->templateRepository->getPublishedTemplates();
+        $allPage = $this->templateRepository->getPublishedPages();
         $allItem = $allCustomItem->merge($allPage);
 
         return response()->json(MenuItemResource::collection($allItem));

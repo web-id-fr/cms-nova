@@ -12,7 +12,7 @@ class PageRepository
     {
     }
 
-    public function getPublishedTemplates(): mixed
+    public function getPublishedPages(): mixed
     {
         return $this->model
             ->where('status', Page::_STATUS_PUBLISHED)
@@ -85,7 +85,7 @@ class PageRepository
         ;
     }
 
-    public function getPublishedAndIndexedTemplates(): Collection
+    public function getPublishedAndIndexedPages(): Collection
     {
         return $this->model
             ->where('status', Page::_STATUS_PUBLISHED)

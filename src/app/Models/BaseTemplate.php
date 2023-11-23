@@ -55,7 +55,7 @@ abstract class BaseTemplate extends Model implements Menuable
      *
      * @var string
      */
-    protected $table = 'templates';
+    protected $table = 'pages';
 
     protected $fillable = [
         'title',

@@ -151,7 +151,7 @@ class CmsServiceProvider extends ServiceProvider
     {
         $this->publishes([
             __DIR__ . '/../publish/app/models/Page.php' => base_path('/app/Models/Page.php'),
-        ], 'template-model');
+        ], 'page-model');
     }
 
     protected function publishTranslations(): void
