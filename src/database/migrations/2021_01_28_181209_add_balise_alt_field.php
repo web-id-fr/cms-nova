@@ -10,10 +10,6 @@ return new class() extends Migration {
      */
     public function up()
     {
-        Schema::table('popins', function (Blueprint $table) {
-            $table->longText('image_alt')->nullable();
-        });
-
         Schema::table('pages', function (Blueprint $table) {
             $table->longText('opengraph_picture_alt')->nullable();
         });
@@ -24,10 +20,6 @@ return new class() extends Migration {
      */
     public function down()
     {
-        Schema::table('popins', function (Blueprint $table) {
-            $table->dropColumn('image_alt');
-        });
-
         Schema::table('pages', function (Blueprint $table) {
             $table->dropColumn('opengraph_picture_alt');
         });

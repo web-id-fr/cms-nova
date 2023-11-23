@@ -33,7 +33,6 @@ parameters:
             paths:
                 - src/Modules/*/Nova/*.php
                 - src/app/Nova/Page.php
-                - src/app/Nova/Popin/Popin.php
         -
             message: '#Access to an undefined property object::\$imageAsset\.#'
             paths:

@@ -144,10 +144,7 @@ Sitemap: https://www.your-domain.com/sitemap.xml
 ### Disable robots follow
 To disable the tracking of robots, you must add in the .env `DISABLE_ROBOTS_FOLLOW=true`
 
-<a id="use-form-popin"></a>
-### Use form
-#### js
-do not modify the file `send_form.js` !
+
 Edit the `helper.js` file with the form front information to display errors and the success message.
 Added to `package.json` :
 ```bash

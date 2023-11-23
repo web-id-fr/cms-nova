@@ -58,7 +58,6 @@ class MenuItemChildrenResource extends JsonResource
                 'form' => ! empty($this->resource->menuable->form)
                     ? FormResource::make($this->resource->menuable->form)->resolve()
                     : [],
-                'is_popin' => true,
             ]),
             $this->mergeWhen(MenuCustomItem::_LINK_URL == $this->resource->menuable->type_link, [
                 'url' => '/' . app()->getLocale() . "/{$menuCustomItem->url}",

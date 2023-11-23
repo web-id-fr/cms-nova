@@ -119,7 +119,6 @@ class FormServiceProvider extends ServiceProvider
 
         $this->publishes([
             $sourcePath . '/send_form.js' => $jsPath . '/send_form.js',
-            $sourcePath . '/send_form_popin.js' => $jsPath . '/send_form_popin.js',
             $sourcePath . '/helpers.js' => $jsPath . '/helpers.js',
         ], [
             $this->moduleNameLower . '-module',

@@ -23,7 +23,6 @@ use Webid\CmsNova\App\Http\Middleware\RedirectionParentChild;
 use Webid\CmsNova\App\Http\Middleware\RedirectToHomepage;
 use Webid\CmsNova\App\Nova\Menu\Menu;
 use Webid\CmsNova\App\Nova\Menu\MenuCustomItem;
-use Webid\CmsNova\App\Nova\Popin\Popin;
 use Webid\CmsNova\App\Nova\Page;
 use Webid\CmsNova\App\Observers\PageObserver;
 use Webid\CmsNova\App\Providers\ViewServiceProvider;
@@ -71,7 +70,6 @@ class CmsServiceProvider extends ServiceProvider
         $this->app->booted(function () {
             Nova::resources([
                 Page::class,
-                Popin::class,
                 Menu::class,
                 MenuCustomItem::class,
             ]);

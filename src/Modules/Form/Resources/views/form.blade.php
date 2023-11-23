@@ -35,9 +35,6 @@
                 </svg>
                 {{ __('template.form.success_message') }}
             </div>
-            <div class="mentions pad_popin">
-                {!! data_get($form, 'rgpd_mention') !!}
-            </div>
         </div>
     </div>
 </form>

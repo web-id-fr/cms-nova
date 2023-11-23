@@ -8,9 +8,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Redirector;
 use Illuminate\View\View;
-use Webid\CmsNova\App\Http\Resources\Popin\PopinResource;
 use Webid\CmsNova\App\Http\Resources\TemplateResource;
-use Webid\CmsNova\App\Repositories\Popin\PopinRepository;
 use Webid\CmsNova\App\Repositories\PageRepository;
 use Webid\CmsNova\App\Services\LanguageService;
 use Webid\CmsNova\App\Services\PageService;
@@ -21,7 +19,6 @@ class PageController extends BaseController
 
     public function __construct(
         private readonly PageRepository $pageRepository,
-        private readonly PopinRepository $popinRepository,
         private readonly LanguageService $languageService,
         private readonly PageService $pageService
     ) {
@@ -39,8 +36,6 @@ class PageController extends BaseController
 
             $data = TemplateResource::make($template)->resolve();
 
-            $popins = $this->popinRepository->findByPageId(data_get($data, 'id'));
-
             try {
                 $extraElementsService = app(ExtraElementsForPageService::class);
                 $this->extraElementsForPage = $extraElementsService->getExtraElementForPage(data_get($data, 'id'));
@@ -56,7 +51,6 @@ class PageController extends BaseController
             return view('template', [
                 'data' => $data,
                 'meta' => $meta,
-                'popins' => PopinResource::collection($popins)->resolve(),
                 'extras' => $this->extraElementsForPage,
             ]);
         } catch (\Throwable $exception) {
@@ -102,11 +96,6 @@ class PageController extends BaseController
                 }
             }
 
-            $popins = $this->popinRepository->findByPageId(data_get($data, 'id'));
-
-            /** @var array $queryParams */
-            $queryParams = $request->query();
-
             try {
                 $extraElementsService = app(ExtraElementsForPageService::class);
                 $this->extraElementsForPage = $extraElementsService->getExtraElementForPage(data_get($data, 'id'));
@@ -119,7 +108,6 @@ class PageController extends BaseController
             return view('template', [
                 'data' => $data,
                 'meta' => $meta,
-                'popins' => PopinResource::collection($popins)->resolve(),
                 'extras' => $this->extraElementsForPage,
             ]);
         } catch (\Throwable $exception) {

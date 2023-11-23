@@ -45,7 +45,6 @@ class MenuItemResource extends JsonResource
                     'form' => ! empty($menuable->form)
                         ? FormResource::make($menuable->form)->resolve()
                         : [],
-                    'is_popin' => true,
                 ]),
                 $this->mergeWhen(MenuCustomItem::_LINK_URL == $menuable->type_link, [
                     'url' => $menuable->url,
