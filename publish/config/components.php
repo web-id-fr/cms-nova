@@ -1,5 +1,8 @@
 <?php
 
+use Webid\CmsNova\App\Http\Resources\Components\TextComponentResource;
+use Webid\CmsNova\App\Models\Components\TextComponent;
+
 /*
 |--------------------------------------------------------------------------
 | Components config
@@ -18,5 +21,11 @@
 */
 
 return [
-
+    TextComponent::class => [
+        'title' => 'Text component',
+        'image' => '/cms/images/components/text_component.png',
+        'resource' => TextComponentResource::class,
+        'view' => 'components/text',
+        'display_on_components_list' => true,
+    ],
 ];

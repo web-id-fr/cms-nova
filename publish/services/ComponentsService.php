@@ -3,10 +3,13 @@
 namespace App\Services;
 
 use Illuminate\Support\Collection;
+use Webid\CmsNova\App\Nova\Components\TextComponent;
+use Webid\CmsNova\App\Repositories\Components\TextComponentRepository;
 
 class ComponentsService
 {
     private ?Collection $allComponents = null;
+    private TextComponentRepository $textComponentRepository;
 
     public function getAllComponents(): Collection
     {
@@ -14,7 +17,18 @@ class ComponentsService
             return $this->allComponents;
         }
 
+        $this->textComponentRepository = app(TextComponentRepository::class);
+
+        $textComponents = collect();
         $components = collect();
+
+        $this->loadComponents(
+            $this->textComponentRepository->getPublishedComponents(),
+            TextComponent::class,
+            $textComponents
+        );
+
+        $components[config('components.'.TextComponent::class.'.title')] = $textComponents;
 
         $this->allComponents = $components;
 

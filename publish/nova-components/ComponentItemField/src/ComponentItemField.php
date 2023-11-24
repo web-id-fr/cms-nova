@@ -2,9 +2,11 @@
 
 namespace Webid\ComponentItemField;
 
+use App\Models\Page;
 use App\Services\ComponentsService;
 use Laravel\Nova\Fields\Field;
 use Laravel\Nova\Http\Requests\NovaRequest;
+use Webid\CmsNova\App\Nova\Components\TextComponent;
 
 class ComponentItemField extends Field
 {
@@ -45,12 +47,24 @@ class ComponentItemField extends Field
         $components = $request[$requestAttribute];
         $components = collect(json_decode($components, true));
 
+        $textComponentsIds = [];
+
         foreach ($components as $key => $component) {
             switch ($component['component_type']) {
+                case TextComponent::class:
+                    $textComponentsIds[$component['id']] = ['order' => $key + 1];
+                    break;
                 default:
                     break;
             }
         }
+
+        Page::saved(function ($model) use (
+            $textComponentsIds
+        ) {
+            // @var Page $model
+            $model->textComponents()->sync($textComponentsIds);
+        });
     }
 
     /**

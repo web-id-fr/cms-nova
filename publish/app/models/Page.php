@@ -2,8 +2,10 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Relations\MorphToMany;
 use Illuminate\Support\Collection;
 use Webid\CmsNova\App\Models\BaseTemplate;
+use Webid\CmsNova\App\Models\Components\TextComponent;
 
 class Page extends BaseTemplate
 {
@@ -31,5 +33,12 @@ class Page extends BaseTemplate
         });
 
         return $components;
+    }
+
+    public function textComponents(): MorphToMany
+    {
+        return $this->morphedByMany(TextComponent::class, 'component')
+            ->withPivot('order')
+            ->orderBy('order');
     }
 }
