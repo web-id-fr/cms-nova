@@ -1,17 +1,14 @@
 <?php
 
-namespace Webid\CmsNova\App\Repositories\Components;
+namespace Webid\CmsNova\Modules\Components\TextComponent\Repositories;
 
 use Illuminate\Database\Eloquent\Collection;
-use Webid\CmsNova\App\Models\Components\TextComponent;
+use Webid\CmsNova\Modules\Components\TextComponent\Models\TextComponent;
 
 class TextComponentRepository
 {
-    private TextComponent $model;
-
-    public function __construct(TextComponent $model)
+    public function __construct(private readonly TextComponent $model)
     {
-        $this->model = $model;
     }
 
     public function getPublishedComponents(): Collection

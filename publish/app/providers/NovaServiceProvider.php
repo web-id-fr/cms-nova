@@ -110,4 +110,15 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
             new Main(),
         ];
     }
+
+    protected function resources(): void
+    {
+        Nova::resourcesIn(app_path('Nova'));
+
+        $novaComponentClasses = [];
+        foreach (config('components') as $componentKey => $componentConfiguration) {
+            $novaComponentClasses[] = $componentConfiguration['nova_component'];
+        }
+        Nova::resources($novaComponentClasses);
+    }
 }

@@ -1,18 +1,18 @@
 <?php
 
-namespace Webid\CmsNova\App\Http\Resources\Components;
+namespace Webid\CmsNova\Modules\Components\TextComponent\Resources;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
-use Webid\CmsNova\App\Models\Components\TextComponent;
+use Webid\CmsNova\Modules\Components\TextComponent\Models\TextComponent;
 
-class TextComponentResource extends JsonResource
+class TextResource extends JsonResource
 {
     /**
-         * @param Request $request
-         *
-         * @return array
-         */
+     * @param Request $request
+     *
+     * @return array
+     */
     public function toArray($request)
     {
         return [

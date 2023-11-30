@@ -10,22 +10,22 @@ use Webid\CmsNova\App\Models\Components\TextComponent;
 |
 | Use the following schema to store components :
 |
-| ComponentModel::class => [
-|   'title" => 'Title component",
-|   'image' => 'PATH_TO_COMPONENT_IMAGE', // /images/components/component.png
-|   'resource => CompenentResource::class,
-|   'view' => 'PATH_TO_COMPONENT_VIEW, // components/component
-|   'nova' => 'URL_TO_ACCES_RESOURCE_NOVA', // /nova/resources/component
-|   'display_on_components_list' => false // optional
+| 'text_image' => [
+|     'from_config_file' => base_path('modules/cms-components/TextImageComponent/config.php'),
+|     'display_on_components_list' => true,
+|     'image' => '/cms/images/components/text_component.png',
 | ]
 */
 
 return [
-    TextComponent::class => [
+    'text' => [
         'title' => 'Text component',
-        'image' => '/cms/images/components/text_component.png',
+        'model' => TextComponent::class,
         'resource' => TextComponentResource::class,
+        'nova_component' => \App\Nova\TextComponent::class,
+        'image' => '/cms/images/components/text_component.png',
         'view' => 'components/text',
         'display_on_components_list' => true,
+        'nova' => '/nova/resources/text-nova-components',
     ],
 ];

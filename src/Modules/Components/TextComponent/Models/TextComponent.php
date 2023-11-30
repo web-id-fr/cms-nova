@@ -1,13 +1,13 @@
 <?php
 
-namespace Webid\CmsNova\App\Models\Components;
+namespace Webid\CmsNova\Modules\Components\TextComponent\Models;
 
-use App\Models\Page;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
 use Webid\CmsNova\App\Models\Traits\DeleteRelationshipOnCascade;
 use Webid\CmsNova\App\Models\Traits\HasStatus;
+use Webid\CmsNova\App\Nova\Page;
 
 class TextComponent extends Model
 {
@@ -19,8 +19,6 @@ class TextComponent extends Model
     const _STATUS_DRAFT = 2;
 
     /**
-     * The table associated with the model.
-     *
      * @var string
      */
     protected $table = 'text_components';

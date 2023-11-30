@@ -15,7 +15,7 @@ class TextComponentTest extends TestCase
 
     protected function getResourceName(): string
     {
-        return 'text-components';
+        return 'text-nova-components';
     }
 
     protected function getModel(): Model

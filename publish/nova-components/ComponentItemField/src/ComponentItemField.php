@@ -23,9 +23,9 @@ class ComponentItemField extends Field
         $componentsConfig = config('components');
         $componentInfos = [];
 
-        foreach ($componentsConfig as $componentConfig) {
-            $componentInfos[$componentConfig['title']]['image'] = asset($componentConfig['image']);
-            $componentInfos[$componentConfig['title']]['display_on_components_list'] = ! array_key_exists('display_on_components_list', $componentConfig);
+        foreach ($componentsConfig as $componentKey => $componentConfig) {
+            $componentInfos[$componentKey]['image'] = asset($componentConfig['image']);
+            $componentInfos[$componentKey]['display_on_components_list'] = ! array_key_exists('display_on_components_list', $componentConfig);
         }
 
         $this->withMeta([

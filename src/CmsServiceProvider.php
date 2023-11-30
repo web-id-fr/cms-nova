@@ -2,7 +2,7 @@
 
 namespace Webid\CmsNova;
 
-use App\Models\Page as PageModel;
+use App\Models\Page;
 use Illuminate\Cookie\Middleware\EncryptCookies;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Http\Resources\Json\JsonResource;
@@ -23,7 +23,6 @@ use Webid\CmsNova\App\Http\Middleware\RedirectionParentChild;
 use Webid\CmsNova\App\Http\Middleware\RedirectToHomepage;
 use Webid\CmsNova\App\Nova\Menu\Menu;
 use Webid\CmsNova\App\Nova\Menu\MenuCustomItem;
-use Webid\CmsNova\App\Nova\Page;
 use Webid\CmsNova\App\Observers\PageObserver;
 use Webid\CmsNova\App\Providers\ViewServiceProvider;
 use Webid\CmsNova\App\Services\DynamicResource;
@@ -38,6 +37,8 @@ class CmsServiceProvider extends ServiceProvider
         if (! app()->isLocal()) {
             $generator->forceScheme('https');
         }
+
+        $this->bootComponents();
 
         $this->app->singleton(DynamicResource::class);
         $this->app->singleton(MenuService::class);
@@ -64,12 +65,12 @@ class CmsServiceProvider extends ServiceProvider
 
         Nova::serving(function (ServingNova $event) {
             // Model Observers
-            PageModel::observe(PageObserver::class);
+            Page::observe(PageObserver::class);
         });
 
         $this->app->booted(function () {
             Nova::resources([
-                Page::class,
+                App\Nova\Page::class,
                 Menu::class,
                 MenuCustomItem::class,
             ]);
@@ -94,6 +95,31 @@ class CmsServiceProvider extends ServiceProvider
         $this->app->register(ViewServiceProvider::class);
     }
 
+    protected function bootComponents(): void
+    {
+        $components = config('components');
+        if (! is_array($components)) {
+            return;
+        }
+
+        foreach ($components as $componentKey => $componentConfiguration) {
+            if (isset($componentConfiguration['from_config_file'])) {
+                app('config')->set(
+                    'components.' . $componentKey,
+                    array_merge(require $componentConfiguration['from_config_file'], $componentConfiguration)
+                );
+
+                $this->loadMigrationsFrom(config('components.' . $componentKey . 'migrations_dir'));
+            }
+
+            Page::resolveRelationUsing($componentKey, function(Page $pageModel ) use ($componentConfiguration) {
+                return $pageModel->morphedByMany($componentConfiguration['model'], 'component')
+                    ->withPivot('order')
+                    ->orderBy('order');
+            });
+
+        }
+    }
     protected function registerMenuDirective(): void
     {
         Blade::directive('menu', function ($expression) {

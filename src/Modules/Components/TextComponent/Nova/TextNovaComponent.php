@@ -1,21 +1,19 @@
 <?php
 
-namespace Webid\CmsNova\App\Nova\Components;
+namespace Webid\CmsNova\Modules\Components\TextComponent\Nova;
 
 use Illuminate\Http\Request;
 use InteractionDesignFoundation\HtmlCard\HtmlCard;
-use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Resource;
-use Webid\CmsNova\App\Models\Components\CodeSnippetComponent as CodeSnippetComponentModel;
-use Webid\CmsNova\Modules\JavaScript\Nova\CodeSnippet;
+use Webid\CmsNova\Modules\Components\TextComponent\Models\TextComponent as ComponentModel;
 
-class CodeSnippetComponent extends Resource
+class TextNovaComponent extends Resource
 {
-    /** @var CodeSnippetComponentModel */
+    /** @var ComponentModel */
     public $resource;
 
     /**
@@ -23,7 +21,7 @@ class CodeSnippetComponent extends Resource
      *
      * @var string
      */
-    public static $model = CodeSnippetComponentModel::class;
+    public static $model = ComponentModel::class;
 
     /**
      * The single value that should be used to represent the resource when being displayed.
@@ -43,23 +41,26 @@ class CodeSnippetComponent extends Resource
 
     /**
      * Get the displayable label of the resource.
-     *
-     * @return string
      */
-    public static function label()
+    public static function label(): string
     {
-        return __('Code snippets');
+        return __('Text');
     }
 
     /**
-     * @return string
+     * Get the displayable singular label of the resource.
      */
-    public static function singularLabel()
+    public static function singularLabel(): string
     {
-        return __('Code snippet');
+        return __('Text');
     }
 
-    public function fields(Request $request): array
+    /**
+     * Get the fields displayed by the resource.
+     *
+     * @return array
+     */
+    public function fields(Request $request)
     {
         return [
             ID::make()->sortable(),
@@ -67,14 +68,14 @@ class CodeSnippetComponent extends Resource
             Text::make(__('Name'), 'name')
                 ->rules('required'),
 
-            BelongsTo::make(__('Code snippet'), 'codeSnippet', CodeSnippet::class)
-                ->showCreateRelationButton()
+            Text::make(__('Text'), 'text')
+                ->rules('required')
                 ->hideFromIndex(),
 
             Select::make(__('Status'), 'status')
-                ->options(CodeSnippetComponentModel::statusLabels())
+                ->options(ComponentModel::statusLabels())
                 ->displayUsingLabels()
-                ->rules('required', 'integer')
+                ->rules(['integer', 'required'])
                 ->hideFromIndex(),
 
             Boolean::make(__('Published'), function () {
@@ -83,7 +84,12 @@ class CodeSnippetComponent extends Resource
         ];
     }
 
-    public function cards(Request $request): array
+    /**
+     * Get the cards available for the request.
+     *
+     * @return array
+     */
+    public function cards(Request $request)
     {
         return [
             (new HtmlCard())->width('1/3')
