@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
 use Illuminate\Support\Collection;
 use Webid\CmsNova\App\Models\BaseTemplate;
-use Webid\CmsNova\App\Models\Components\TextComponent;
+use Webid\CmsNova\Modules\Components\TextComponent\Models\TextComponent;
 
 class Page extends BaseTemplate
 {
@@ -14,6 +14,8 @@ class Page extends BaseTemplate
     public function chargeComponents(): void
     {
         $components = collect();
+
+        $this->mapItems($this->textComponents, TextComponent::class, $components);
 
         $components = $components->sortBy(function ($item) {
             return $item->pivot->order;
