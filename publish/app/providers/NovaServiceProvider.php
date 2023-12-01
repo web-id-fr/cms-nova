@@ -4,7 +4,6 @@ namespace App\Providers;
 
 use App\Nova\Dashboards\Main;
 use App\Nova\User;
-use App\Services\ComponentsService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use Laravel\Nova\Menu\Menu;
@@ -16,6 +15,7 @@ use Oneduo\NovaFileManager\NovaFileManager;
 use Webid\CmsNova\App\Nova\Menu\Menu as MenuModule;
 use Webid\CmsNova\App\Nova\Menu\MenuCustomItem;
 use Webid\CmsNova\App\Nova\Page;
+use Webid\CmsNova\App\Services\ComponentsService;
 use Webid\ComponentTool\ComponentTool;
 use Webid\LanguageTool\LanguageTool;
 use Webid\MenuTool\MenuTool;

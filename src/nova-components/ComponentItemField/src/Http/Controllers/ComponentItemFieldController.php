@@ -2,10 +2,10 @@
 
 namespace Webid\ComponentItemField\Http\Controllers;
 
-use App\Services\ComponentsService;
 use Illuminate\Http\JsonResponse;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use Webid\CmsNova\App\Http\Controllers\BaseController;
+use Webid\CmsNova\App\Services\ComponentsService;
 
 class ComponentItemFieldController extends BaseController
 {

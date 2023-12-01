@@ -129,14 +129,14 @@
             </div>
 
             <div class="flex flex-wrap component-container-select">
-                <div @click="showComponentItems(component, name)"
-                     v-for="(component, name, index) in filteredFiles"
+                <div @click="showComponentItems(component, key)"
+                     v-for="(component, key, index) in filteredFiles"
                      ref="card"
                      class="w-1/3 card card-component relative flex flex-wrap border border-lg border-50 cursor-pointer m-2"
                      v-if="!activeComponentItem"
                 >
                     <div class="image-component">
-                        <img :src="componentInfos[name]['image']" class="image-component" :alt="name">
+                        <img :src="componentInfos[key]['image']" class="image-component" :alt="component['name']">
                     </div>
                     <div class="w-full text-center text-xs border-t border-30 bg-50 flex p-1 items-center justify-center absolute text-name">
                         {{ __(name) }}

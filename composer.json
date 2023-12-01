@@ -13,6 +13,7 @@
             "Webid\\ComponentTool\\" : "src/nova-components/ComponentTool/src/",
             "Webid\\MenuItemField\\" : "src/nova-components/MenuItemField/src/",
             "Webid\\RecipientItemField\\": "src/nova-components/RecipientItemField/src/",
+            "Webid\\ComponentItemField\\": "src/nova-components/ComponentItemField/src/",
             "Webid\\ServiceItemField\\": "src/nova-components/ServiceItemField/src/",
             "Webid\\PageUrlItemField\\" : "src/nova-components/PageUrlItemField/src/",
             "Webid\\ArticleCategoriesItemField\\" : "src/nova-components/ArticleCategoriesItemField/src/",

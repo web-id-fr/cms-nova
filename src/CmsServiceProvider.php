@@ -102,6 +102,7 @@ class CmsServiceProvider extends ServiceProvider
             return;
         }
 
+
         foreach ($components as $componentKey => $componentConfiguration) {
             if (isset($componentConfiguration['from_config_file'])) {
                 app('config')->set(
@@ -112,8 +113,10 @@ class CmsServiceProvider extends ServiceProvider
                 $this->loadMigrationsFrom(config('components.' . $componentKey . 'migrations_dir'));
             }
 
-            Page::resolveRelationUsing($componentKey, function(Page $pageModel ) use ($componentConfiguration) {
-                return $pageModel->morphedByMany($componentConfiguration['model'], 'component')
+            $mergedConfiguration = config('components.' . $componentKey);
+
+            Page::resolveRelationUsing($mergedConfiguration['relationName'], function(Page $pageModel ) use ($mergedConfiguration) {
+                return $pageModel->morphedByMany($mergedConfiguration['model'], 'component')
                     ->withPivot('order')
                     ->orderBy('order');
             });

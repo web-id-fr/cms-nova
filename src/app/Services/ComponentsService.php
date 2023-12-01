@@ -1,15 +1,12 @@
 <?php
 
-namespace App\Services;
+namespace Webid\CmsNova\App\Services;
 
 use Illuminate\Support\Collection;
-use Webid\CmsNova\App\Nova\Components\TextComponent;
-use Webid\CmsNova\App\Repositories\Components\TextComponentRepository;
 
 class ComponentsService
 {
     private ?Collection $allComponents = null;
-    private TextComponentRepository $textComponentRepository;
 
     public function getAllComponents(): Collection
     {
@@ -17,20 +14,23 @@ class ComponentsService
             return $this->allComponents;
         }
 
-        $this->textComponentRepository = app(TextComponentRepository::class);
+        $allComponents = collect();
 
-        $textComponents = collect();
-        $components = collect();
+        $componentsConfig = config('components');
+        foreach ($componentsConfig as $componentKey => $componentConfig) {
+            $repository = app($componentConfig['repository']);
+            $components = collect();
 
-        $this->loadComponents(
-            $this->textComponentRepository->getPublishedComponents(),
-            TextComponent::class,
-            $textComponents
-        );
+            $this->loadComponents(
+                $repository->getPublishedComponents(),
+                $componentConfig['model'],
+                $components
+            );
 
-        $components[config('components.'.TextComponent::class.'.title')] = $textComponents;
+            $allComponents[] = $components;
+        }
 
-        $this->allComponents = $components;
+        $this->allComponents = $allComponents;
 
         return $this->allComponents;
     }

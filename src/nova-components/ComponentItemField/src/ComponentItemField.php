@@ -3,10 +3,11 @@
 namespace Webid\ComponentItemField;
 
 use App\Models\Page;
-use App\Services\ComponentsService;
 use Laravel\Nova\Fields\Field;
 use Laravel\Nova\Http\Requests\NovaRequest;
-use Webid\CmsNova\App\Nova\Components\TextComponent;
+use Webid\CmsNova\App\Services\ComponentsService;
+use Webid\CmsNova\Modules\Components\TextComponent\Models\TextComponent;
+use Webid\CmsTextImageComponent\Models\TextImageComponent;
 
 class ComponentItemField extends Field
 {
@@ -24,8 +25,13 @@ class ComponentItemField extends Field
         $componentInfos = [];
 
         foreach ($componentsConfig as $componentKey => $componentConfig) {
-            $componentInfos[$componentKey]['image'] = asset($componentConfig['image']);
-            $componentInfos[$componentKey]['display_on_components_list'] = ! array_key_exists('display_on_components_list', $componentConfig);
+            $componentInfos[] = [
+                'key' => $componentKey,
+                'image' => asset($componentConfig['image']),
+                'display_on_components_list' =>
+                    array_key_exists('display_on_components_list', $componentConfig)
+                && $componentConfig['display_on_components_list'] === true,
+            ];
         }
 
         $this->withMeta([
@@ -48,11 +54,16 @@ class ComponentItemField extends Field
         $components = collect(json_decode($components, true));
 
         $textComponentsIds = [];
+        $textImagesComponentsIds = [];
 
         foreach ($components as $key => $component) {
+            // TODO: Dynamize
             switch ($component['component_type']) {
                 case TextComponent::class:
                     $textComponentsIds[$component['id']] = ['order' => $key + 1];
+                    break;
+                case TextImageComponent::class:
+                    $textImagesComponentsIds[$component['id']] = ['order' => $key + 1];
                     break;
                 default:
                     break;
@@ -60,10 +71,12 @@ class ComponentItemField extends Field
         }
 
         Page::saved(function ($model) use (
-            $textComponentsIds
+            $textComponentsIds,
+            $textImagesComponentsIds
         ) {
             // @var Page $model
             $model->textComponents()->sync($textComponentsIds);
+            $model->textImagesComponents()->sync($textImagesComponentsIds);
         });
     }
 
