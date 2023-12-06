@@ -54,7 +54,6 @@ class CmsServiceProvider extends ServiceProvider
         $this->publishNovaComponents();
         $this->publishTranslations();
         $this->publishServices();
-        $this->publishCommands();
 
         $this->registerAliasMiddleware($router);
         $router->pushMiddlewareToGroup('redirect-parent-child', RedirectionParentChild::class);
@@ -196,13 +195,6 @@ class CmsServiceProvider extends ServiceProvider
             ),
             __DIR__ . '/../publish/services/ComponentsService.php' => base_path('/app/Services/ComponentsService.php'),
         ], 'services');
-    }
-
-    protected function publishCommands(): void
-    {
-        $this->publishes([
-            __DIR__ . '/../publish/app/Console' => app_path('Console'),
-        ], 'commands');
     }
 
     protected function registerAliasMiddleware(Router $router): void
