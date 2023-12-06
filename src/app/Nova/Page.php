@@ -149,8 +149,6 @@ class Page extends Resource
 
             Boolean::make(__('Homepage'), 'homepage'),
 
-            Boolean::make(__('Contains articles list'), 'contains_articles_list'),
-
             Translatable::make(__('Title'), 'title')
                 ->singleLine()
                 ->rules('required')

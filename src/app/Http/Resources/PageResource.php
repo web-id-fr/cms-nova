@@ -5,7 +5,7 @@ namespace Webid\CmsNova\App\Http\Resources;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Webid\CmsNova\App\Http\Resources\Components\ComponentResource;
 
-class TemplateResource extends JsonResource
+class PageResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -31,7 +31,6 @@ class TemplateResource extends JsonResource
             'meta_keywords' => $this->resource->meta_keywords,
             'items' => ComponentResource::collection($this->resource->related)->resolve(),
             'menu_description' => $this->resource->menu_description,
-            'contain_article_list' => (bool) $this->resource->contains_articles_list,
         ];
     }
 

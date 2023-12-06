@@ -173,7 +173,6 @@ class MenuTest extends MenuItemFieldTestCase
                                     'indexation' => 1,
                                     'status' => 0,
                                     'homepage' => 1,
-                                    'contains_articles_list' => 0,
                                     'metatitle' => null,
                                     'metadescription' => null,
                                     'opengraph_title' => null,
@@ -202,7 +201,6 @@ class MenuTest extends MenuItemFieldTestCase
                                             'indexation' => 1,
                                             'status' => 0,
                                             'homepage' => 0,
-                                            'contains_articles_list' => 0,
                                             'metatitle' => null,
                                             'metadescription' => [
                                                 'en' => null,
@@ -261,7 +259,6 @@ class MenuTest extends MenuItemFieldTestCase
                             'indexation' => 0,
                             'status' => 0,
                             'homepage' => 0,
-                            'contains_articles_list' => 0,
                             'metatitle' => null,
                             'metadescription' => [
                                 'fr' => null,
@@ -295,7 +292,6 @@ class MenuTest extends MenuItemFieldTestCase
                                     'indexation' => 1,
                                     'status' => 0,
                                     'homepage' => 0,
-                                    'contains_articles_list' => 0,
                                     'metatitle' => null,
                                     'metadescription' => null,
                                     'opengraph_title' => null,

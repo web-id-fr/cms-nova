@@ -23,7 +23,6 @@ use Webid\CmsNova\App\Models\Traits\HasStatus;
  * @property array|string $slug
  * @property bool|int     $homepage
  * @property int          $status
- * @property bool|int     $contains_articles_list
  * @property \DateTime    $publish_at
  * @property int          $parent_page_id
  */
@@ -73,7 +72,6 @@ abstract class BaseTemplate extends Model implements Menuable
         'publish_at',
         'homepage',
         'menu_description',
-        'contains_articles_list',
         'parent_id',
         'reference_page_id',
     ];
@@ -102,11 +100,6 @@ abstract class BaseTemplate extends Model implements Menuable
     public function isHomepage(): bool
     {
         return boolval($this->homepage);
-    }
-
-    public function containsArticlesList(): bool
-    {
-        return boolval($this->contains_articles_list);
     }
 
     public function parent(): BelongsTo

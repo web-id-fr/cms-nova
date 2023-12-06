@@ -98,22 +98,4 @@ class PageRepository
             ->get()
         ;
     }
-
-    /**
-     * @return Collection<Page>
-     */
-    public function getPublicPagesContainingArticlesLists(): Collection
-    {
-        return $this->model
-            ->where('status', Page::_STATUS_PUBLISHED)
-            ->where(function ($query) {
-                $query->orWhere('publish_at', '<', now())
-                    ->orWhereNull('publish_at')
-                ;
-            })
-            ->where('indexation', true)
-            ->where('contains_articles_list', true)
-            ->get()
-        ;
-    }
 }

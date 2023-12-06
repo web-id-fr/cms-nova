@@ -61,10 +61,6 @@ class PageService
         $routeParams = [];
         $routeName = 'home';
 
-        if ($template->containsArticlesList() && isset($queryParams['category'])) {
-            $routeParams['category'] = $queryParams['category'];
-        }
-
         if (! empty($template->reference_page_id)) {
             $reference_page = $this->templateRepository->getById($template->reference_page_id);
 

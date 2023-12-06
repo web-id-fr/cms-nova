@@ -8,7 +8,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Redirector;
 use Illuminate\View\View;
-use Webid\CmsNova\App\Http\Resources\TemplateResource;
+use Webid\CmsNova\App\Http\Resources\PageResource;
 use Webid\CmsNova\App\Repositories\PageRepository;
 use Webid\CmsNova\App\Services\LanguageService;
 use Webid\CmsNova\App\Services\PageService;
@@ -34,7 +34,7 @@ class PageController extends BaseController
                 app()->getLocale()
             );
 
-            $data = TemplateResource::make($template)->resolve();
+            $data = PageResource::make($template)->resolve();
 
             try {
                 $extraElementsService = app(ExtraElementsForPageService::class);
@@ -65,36 +65,13 @@ class PageController extends BaseController
             $path = $request->path();
             $slugs = explode('/', $path);
             $slug = end($slugs);
-            $requestPage = request()->input('page');
 
-            $template = $this->pageRepository->getBySlugWithRelations(
+            $page = $this->pageRepository->getBySlugWithRelations(
                 $slug,
                 app()->getLocale()
             );
 
-            $data = TemplateResource::make($template)->resolve();
-
-            $mustUsePaginationForArticlesList = config('cms.use_pagination_for_article_list');
-            $pageContainArticleListAndRequestPage = ! empty($requestPage) && $data['contain_article_list'];
-
-            if ($mustUsePaginationForArticlesList && $pageContainArticleListAndRequestPage) {
-                foreach ($data['items'] as $item) {
-                    $componentViewIsSameThatArticleListView = $item['component']['view']
-                        === config('cms.article_list_view');
-                    $requestPageIsNotNumeric = ! is_numeric($requestPage);
-                    $requestPageIsLessThan1 = $requestPage < 1;
-                    $requestPageIsHigherThanTheLastPage = $requestPage > $item['component']['pagination']['paginator']
-                        ->lastPage()
-                    ;
-
-                    if (
-                        $componentViewIsSameThatArticleListView
-                        && ($requestPageIsNotNumeric || $requestPageIsLessThan1 || $requestPageIsHigherThanTheLastPage)
-                    ) {
-                        abort(404);
-                    }
-                }
-            }
+            $data = PageResource::make($page)->resolve();
 
             try {
                 $extraElementsService = app(ExtraElementsForPageService::class);
@@ -103,7 +80,7 @@ class PageController extends BaseController
                 report($exception);
             }
 
-            $meta = $this->getMetas($data);
+            $meta = $this->getMetas($data, $page);
 
             return view('template', [
                 'data' => $data,
@@ -121,7 +98,7 @@ class PageController extends BaseController
         return redirect($this->languageService->getFromBrowser());
     }
 
-    private function getMetas(array $data, $template, $queryParams, array $slugs = []): array
+    private function getMetas(array $data, $template, $queryParams = [], array $slugs = []): array
     {
         return [
             'title' => data_get($data, 'meta_title'),
