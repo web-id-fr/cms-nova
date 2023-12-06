@@ -40,7 +40,7 @@ class MenuItemField extends Field
         }
 
         // TEMPLATE
-        $allTemplates = $templateRepository->getPublishedTemplates();
+        $allTemplates = $templateRepository->getPublishedPages();
         $allTemplates = $this->mapItems($allTemplates, Page::class);
         foreach ($allTemplates as $template) {
             $allItems->push($template);

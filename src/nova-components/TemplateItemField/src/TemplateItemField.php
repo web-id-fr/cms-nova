@@ -22,7 +22,7 @@ class TemplateItemField extends Field
     {
         $templateRepository = app()->make(PageRepository::class);
 
-        $allField = $templateRepository->getPublishedTemplates();
+        $allField = $templateRepository->getPublishedPages();
 
         $this->withMeta(['items' => $allField]);
 
