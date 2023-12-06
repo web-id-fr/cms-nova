@@ -4,8 +4,6 @@ namespace Webid\CmsNova\App\Nova;
 
 use App\Models\Page as PageModel;
 use Carbon\Carbon;
-use Eminiarts\Tabs\Tab;
-use Eminiarts\Tabs\Tabs;
 use Eminiarts\Tabs\Traits\HasTabs;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\URL;
@@ -83,14 +81,9 @@ class Page extends Resource
     public function fields(Request $request)
     {
         return [
-            Tabs::make(__(':resource Details: :title', [
-                'resource' => self::singularLabel(),
-                'title' => $this->title(),
-            ]), [
-                Tab::make(__('Parameters'), $this->parameterFields()),
-                Tab::make(__('Content'), $this->contentFields()),
-                Tab::make(__('Settings'), $this->seoFields()),
-            ]),
+            ...$this->parameterFields(),
+            ...$this->contentFields(),
+            ...$this->seoFields(),
         ];
     }
 

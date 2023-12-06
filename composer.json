@@ -39,15 +39,10 @@
         "php": "^8.2",
         "laravel/framework": "^9|^10",
         "laravel/nova": "~4.0",
-        "eminiarts/nova-tabs": "^2.2",
-        "whitecube/nova-flexible-content": "^1.0",
         "spatie/laravel-honeypot": "^4.3",
-        "spatie/laravel-translatable": "^6.2",
-        "spatie/laravel-sitemap": "^6.2",
         "nwidart/laravel-modules": "9.*",
         "oneduo/nova-file-manager": "^0.12.0",
-        "alexwenzel/nova-dependency-container": "^1.10",
-        "interaction-design-foundation/nova-html-card": "^3.1"
+        "alexwenzel/nova-dependency-container": "^1.10"
     },
     "require-dev": {
         "phpunit/phpunit": "^9.5.10",
