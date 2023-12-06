@@ -1,20 +1,23 @@
 <?php
+
 /*
 |--------------------------------------------------------------------------
 | Components config
 |--------------------------------------------------------------------------
 |
-| Use the following schema to store components :
+| Use the following schema to enable external components :
 |
-| 'text_image' => [
-|     'from_config_file' => base_path('modules/cms-components/TextImageComponent/config.php'),
-|     'display_on_components_list' => true,
-|     'image' => '/cms/images/components/text_component.png',
+|   'text_image' => [
+|        'from_config_file' => base_path('modules/cms-components/TextImageComponent/config.php'),
+|        'display_on_components_list' => true,
+|        'image' => '/cms/images/components/text_image_component.png',
+|    ]
 | ]
 */
 
 use Webid\CmsNova\Modules\Components\TextComponent\Models\TextComponent;
 use Webid\CmsNova\Modules\Components\TextComponent\Nova\TextNovaComponent;
+use Webid\CmsNova\Modules\Components\TextComponent\Repositories\TextComponentRepository;
 use Webid\CmsNova\Modules\Components\TextComponent\Resources\TextResource;
 
 return [
@@ -23,9 +26,11 @@ return [
         'model' => TextComponent::class,
         'resource' => TextResource::class,
         'nova_component' => TextNovaComponent::class,
+        'repository' => TextComponentRepository::class,
         'image' => '/cms/images/components/text_component.png',
         'view' => 'components/text',
         'display_on_components_list' => true,
         'nova' => '/nova/resources/text-nova-components',
+        'relationName' => 'textComponents',
     ],
 ];

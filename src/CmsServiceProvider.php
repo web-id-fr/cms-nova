@@ -51,7 +51,6 @@ class CmsServiceProvider extends ServiceProvider
         $this->publishViews();
         $this->publishPublicFiles();
         $this->publishPageModel();
-        $this->publishNovaComponents();
         $this->publishTranslations();
         $this->publishServices();
 
@@ -162,15 +161,6 @@ class CmsServiceProvider extends ServiceProvider
         $this->publishes([
             __DIR__ . '/../publish/public/cms' => base_path('/public/cms'),
         ], 'public');
-    }
-
-    protected function publishNovaComponents(): void
-    {
-        $this->publishes([
-            __DIR__ . '/../publish/nova-components/ComponentItemField' => base_path(
-                '/nova-components/ComponentItemField'
-            ),
-        ], 'nova-components');
     }
 
     protected function publishPageModel(): void
