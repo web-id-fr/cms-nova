@@ -6,8 +6,6 @@ use App\Models\Page;
 use Laravel\Nova\Fields\Field;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use Webid\CmsNova\App\Services\ComponentsService;
-use Webid\CmsNova\Modules\Components\TextComponent\Models\TextComponent;
-use Webid\CmsTextImageComponent\Models\TextImageComponent;
 
 class ComponentItemField extends Field
 {
@@ -50,33 +48,16 @@ class ComponentItemField extends Field
      */
     public function fillAttributeFromRequest(NovaRequest $request, $requestAttribute, $model, $attribute)
     {
-        $components = $request[$requestAttribute];
-        $components = collect(json_decode($components, true));
-
-        $textComponentsIds = [];
-        $textImagesComponentsIds = [];
+        $components = collect(json_decode($request[$requestAttribute], true));
 
         foreach ($components as $key => $component) {
-            // TODO: Dynamize
-            switch ($component['component_type']) {
-                case TextComponent::class:
-                    $textComponentsIds[$component['id']] = ['order' => $key + 1];
-                    break;
-                case TextImageComponent::class:
-                    $textImagesComponentsIds[$component['id']] = ['order' => $key + 1];
-                    break;
-                default:
-                    break;
-            }
+            $componentIds[$component['component_type']][$component['id']] = ['order' => $key + 1];
         }
 
-        Page::saved(function ($model) use (
-            $textComponentsIds,
-            $textImagesComponentsIds
-        ) {
-            // @var Page $model
-            $model->textComponents()->sync($textComponentsIds);
-            $model->textImagesComponents()->sync($textImagesComponentsIds);
+        Page::saved(function ($model) use ($componentIds) {
+            foreach (config('components') as $componentKey => $componentConfiguration) {
+                $model->{$componentConfiguration['relationName']}()->sync($componentIds[$componentConfiguration['model']] ?? []);
+            }
         });
     }
 

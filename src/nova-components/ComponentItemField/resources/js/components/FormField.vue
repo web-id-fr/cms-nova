@@ -353,17 +353,17 @@ export default {
     watch: {
         selected: {
             handler: function(val) {
-                console.log(val)
                 let ids = map(val, (item) => {
+                    console.log(item)
                     return {
                         id: item.id,
                         component_type: item.component_type,
                         component_nova: item.component_nova,
+                        component_bla: 'bla',
                         component_image: item.component_image,
                         component_name: item.component_name
                     };
                 });
-                console.log(ids)
                 this.handleChange(JSON.stringify(ids));
             },
             deep: true

@@ -206,17 +206,17 @@ var _useLocalization = (0,laravel_nova__WEBPACK_IMPORTED_MODULE_0__.useLocalizat
   watch: {
     selected: {
       handler: function handler(val) {
-        console.log(val);
         var ids = (0,lodash__WEBPACK_IMPORTED_MODULE_3__.map)(val, function (item) {
+          console.log(item);
           return {
             id: item.id,
             component_type: item.component_type,
             component_nova: item.component_nova,
+            component_bla: 'bla',
             component_image: item.component_image,
             component_name: item.component_name
           };
         });
-        console.log(ids);
         this.handleChange(JSON.stringify(ids));
       },
       deep: true
@@ -305,7 +305,8 @@ __webpack_require__.r(__webpack_exports__);
       this.$emit('selectComponent', component);
     },
     getUrlView: function getUrlView(name) {
-      return this.novaPath + "/resources/" + name.replace(/\s+/g, '-').toLowerCase() + "s/new";
+      return this.novaPath + "/resources/";
+      //return this.novaPath + "/resources/" + name.replace(/\s+/g, '-').toLowerCase() + "s/new";
     },
     refreshComponentData: function refreshComponentData(name) {
       this.$emit('refreshData', name);

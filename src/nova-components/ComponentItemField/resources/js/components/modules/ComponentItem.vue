@@ -122,7 +122,8 @@
             },
 
             getUrlView(name) {
-                return this.novaPath + "/resources/" + name.replace(/\s+/g, '-').toLowerCase() + "s/new";
+                return this.novaPath + "/resources/";
+                //return this.novaPath + "/resources/" + name.replace(/\s+/g, '-').toLowerCase() + "s/new";
             },
 
             refreshComponentData(name) {

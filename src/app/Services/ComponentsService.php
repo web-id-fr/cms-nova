@@ -23,7 +23,7 @@ class ComponentsService
 
             $this->loadComponents(
                 $repository->getPublishedComponents(),
-                $componentConfig['model'],
+                $componentConfig,
                 $components
             );
 
@@ -35,9 +35,9 @@ class ComponentsService
         return $this->allComponents;
     }
 
-    private function loadComponents(Collection $publishComponent, string $model, Collection $allComponents): Collection
+    private function loadComponents(Collection $publishComponent, array $componentConfiguration, Collection $allComponents): Collection
     {
-        $allPublishComponents = $this->mapItems($publishComponent, $model);
+        $allPublishComponents = $this->mapItems($publishComponent, $componentConfiguration);
         $allPublishComponents->each(function ($component) use (&$allComponents) {
             $allComponents->push($component);
         });
@@ -45,13 +45,13 @@ class ComponentsService
         return $allComponents;
     }
 
-    private function mapItems(Collection $items, string $model): Collection
+    private function mapItems(Collection $items, array $componentConfiguration): Collection
     {
-        return $items->each(function ($item) use ($model) {
-            $item->component_type = $model;
-            $item->component_nova = config("components.{$model}.nova");
-            $item->component_image = asset(config("components.{$model}.image"));
-            $item->component_name = config("components.{$model}.title");
+        return $items->each(function ($item) use ($componentConfiguration) {
+            $item->component_type = $componentConfiguration['model'];
+            $item->component_nova = $componentConfiguration['nova'];
+            $item->component_image = $componentConfiguration['image'];
+            $item->component_name = $componentConfiguration['title'];
 
             return $item;
         });

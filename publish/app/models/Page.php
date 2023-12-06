@@ -15,26 +15,24 @@ class Page extends BaseTemplate
     {
         $components = collect();
 
-        $this->mapItems($this->textComponents, TextComponent::class, $components);
+        foreach (config('components') as $componentKey => $componentConfiguration) {
+            /** @var Collection $items */
+            $items = $this->{$componentConfiguration['relationName']};
+
+            $items->each(function ($item) use ($components, $componentKey, $componentConfiguration) {
+                $item->component_type = $componentKey;
+                $item->component_nova = $componentConfiguration['nova'];
+                $item->component_image = $componentConfiguration['image'];
+                $item->component_name = $componentConfiguration['title'];
+                $components->push($item);
+            });
+        }
 
         $components = $components->sortBy(function ($item) {
             return $item->pivot->order;
         });
 
         $this->component_items = $components;
-    }
-
-    protected function mapItems(Collection $items, string $model, Collection &$components): Collection
-    {
-        $items->each(function ($item) use (&$components, $model) {
-            $item->component_type = $model;
-            $item->component_nova = config("components.{$model}.nova");
-            $item->component_image = asset(config("components.{$model}.image"));
-            $item->component_name = config("components.{$model}.title");
-            $components->push($item);
-        });
-
-        return $components;
     }
 
     public function textComponents(): MorphToMany
