@@ -4,7 +4,6 @@ namespace Webid\CmsNova\App\Nova;
 
 use App\Models\Page as PageModel;
 use Carbon\Carbon;
-use Eminiarts\Tabs\Traits\HasTabs;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\URL;
 use Laravel\Nova\Fields\BelongsTo;
@@ -13,6 +12,7 @@ use Laravel\Nova\Fields\DateTime;
 use Laravel\Nova\Fields\Heading;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Select;
+use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use Laravel\Nova\Resource;
 use Oneduo\NovaFileManager\FileManager;
@@ -21,12 +21,9 @@ use Webid\CmsNova\App\Rules\TranslatableMax;
 use Webid\CmsNova\App\Rules\TranslatableSlug;
 use Webid\ComponentItemField\ComponentItemField;
 use Webid\PageUrlItemField\PageUrlItemField;
-use Webid\TranslatableItemField\Translatable;
 
 class Page extends Resource
 {
-    use HasTabs;
-
     /** @var PageModel */
     public $resource;
 
@@ -142,12 +139,12 @@ class Page extends Resource
 
             Boolean::make(__('Homepage'), 'homepage'),
 
-            Translatable::make(__('Title'), 'title')
+            Text::make(__('Title'), 'title')
                 ->singleLine()
                 ->rules('required')
                 ->sortable(),
 
-            Translatable::make(__('Menu description'), 'menu_description')
+            Text::make(__('Menu description'), 'menu_description')
                 ->help(__(
                     'This field is optional and allows you to add a short description below the title in the sub-menu.'
                 ))
@@ -155,7 +152,7 @@ class Page extends Resource
                 ->hideFromIndex()
                 ->sortable(),
 
-            Translatable::make(__('Slug'), 'slug')
+            Text::make(__('Slug'), 'slug')
                 ->help(__('Please use only this type of slug "name-of-the-template"'))
                 ->singleLine()
                 ->rules('array', new TranslatableMax(100), new TranslatableSlug())
@@ -206,28 +203,28 @@ class Page extends Resource
 
             Heading::make('Meta'),
 
-            Translatable::make(__('Title'), 'metatitle')
+            Text::make(__('Title'), 'metatitle')
                 ->singleLine()
                 ->hideFromIndex(),
 
-            Translatable::make(__('Description'), 'metadescription')
+            Text::make(__('Description'), 'metadescription')
                 ->trix()
                 ->asHtml()
                 ->rules('array')
                 ->hideFromIndex(),
 
-            Translatable::make(__('Keywords'), 'meta_keywords')
+            Text::make(__('Keywords'), 'meta_keywords')
                 ->rules('array')
                 ->singleLine()
                 ->hideFromIndex(),
 
             Heading::make('Open graph'),
 
-            Translatable::make(__('Title'), 'opengraph_title')
+            Text::make(__('Title'), 'opengraph_title')
                 ->singleLine()
                 ->hideFromIndex(),
 
-            Translatable::make(__('Description'), 'opengraph_description')
+            Text::make(__('Description'), 'opengraph_description')
                 ->trix()
                 ->asHtml()
                 ->rules('array')
@@ -236,7 +233,7 @@ class Page extends Resource
             FileManager::make(__('Image'), 'opengraph_picture')
                 ->hideFromIndex(),
 
-            Translatable::make(__('Image balise alt'), 'opengraph_picture_alt')
+            Text::make(__('Image balise alt'), 'opengraph_picture_alt')
                 ->singleLine()
                 ->hideFromIndex(),
 

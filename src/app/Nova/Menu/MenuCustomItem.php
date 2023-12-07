@@ -7,11 +7,11 @@ use Alexwenzel\DependencyContainer\HasDependencies;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\Select;
+use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Resource;
 use Webid\AdvancedUrlField\AdvancedUrlField;
 use Webid\CmsNova\App\Models\Menu\MenuCustomItem as MenuCustomItemModel;
 use Webid\CmsNova\Modules\Form\Nova\Form;
-use Webid\TranslatableItemField\Translatable;
 
 class MenuCustomItem extends Resource
 {
@@ -51,11 +51,11 @@ class MenuCustomItem extends Resource
     public function fields(Request $request): array
     {
         return [
-            Translatable::make(__('Title'), 'title')
+            Text::make(__('Title'), 'title')
                 ->singleLine()
                 ->rules('array'),
 
-            Translatable::make(__('Menu description'), 'menu_description')
+            Text::make(__('Menu description'), 'menu_description')
                 ->help(__(
                     'This field is optional and allows you to add a short description below the title in the sub-menu.'
                 ))

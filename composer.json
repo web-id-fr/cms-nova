@@ -7,16 +7,13 @@
             "Webid\\CmsNova\\App\\": "src/app/",
             "Webid\\FieldItemField\\" : "src/nova-components/FieldItemField/src/",
             "Webid\\LanguageTool\\" : "src/nova-components/LanguageTool/src/",
-            "Webid\\TranslatableItemField\\" : "src/nova-components/TranslatableItemField/src/",
             "Webid\\AdvancedUrlField\\": "src/nova-components/AdvancedUrlField/src/",
             "Webid\\MenuTool\\" : "src/nova-components/MenuTool/src/",
             "Webid\\ComponentTool\\" : "src/nova-components/ComponentTool/src/",
             "Webid\\MenuItemField\\" : "src/nova-components/MenuItemField/src/",
-            "Webid\\RecipientItemField\\": "src/nova-components/RecipientItemField/src/",
             "Webid\\ComponentItemField\\": "src/nova-components/ComponentItemField/src/",
             "Webid\\ServiceItemField\\": "src/nova-components/ServiceItemField/src/",
             "Webid\\PageUrlItemField\\" : "src/nova-components/PageUrlItemField/src/",
-            "Webid\\ConfirmationEmailItemField\\" : "src/nova-components/ConfirmationEmailItemField/src/",
             "Webid\\TemplateItemField\\" : "src/nova-components/TemplateItemField/src/",
             "Webid\\SwitchLanguage\\" : "src/nova-components/SwitchLanguage/src/",
             "Webid\\ImageItemField\\" : "src/nova-components/ImageItemField/src/"
@@ -80,15 +77,12 @@
                 "Laravel\\Nova\\NovaServiceProvider",
                 "Webid\\CmsNova\\CmsServiceProvider",
                 "Webid\\LanguageTool\\ToolServiceProvider",
-                "Webid\\TranslatableItemField\\FieldServiceProvider",
                 "Webid\\AdvancedUrlField\\FieldServiceProvider",
                 "Webid\\MenuTool\\ToolServiceProvider",
                 "Webid\\MenuItemField\\FieldServiceProvider",
-                "Webid\\RecipientItemField\\FieldServiceProvider",
                 "Webid\\ServiceItemField\\FieldServiceProvider",
                 "Webid\\FieldItemField\\FieldServiceProvider",
                 "Webid\\PageUrlItemField\\FieldServiceProvider",
-                "Webid\\ConfirmationEmailItemField\\FieldServiceProvider",
                 "Webid\\TemplateItemField\\FieldServiceProvider",
                 "Webid\\ComponentTool\\ToolServiceProvider",
                 "Webid\\SwitchLanguage\\ToolServiceProvider",
@@ -100,6 +94,10 @@
         {
             "type": "composer",
             "url": "https://nova.laravel.com"
+        },
+        {
+            "type": "path",
+            "url": "./cms-nova/src/nova-components/ComponentItemField"
         }
     ]
 }
