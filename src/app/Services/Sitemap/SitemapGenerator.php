@@ -72,30 +72,14 @@ class SitemapGenerator
     private function loadPublishedPagesUrls(SitemapUrlCollection $collection): SitemapUrlCollection
     {
         foreach ($this->templateRepository->getPublishedAndIndexedPages() as $template) {
-            $translatedAttributes = $template->getTranslationsAttribute();
-
-            foreach ($translatedAttributes['slug'] as $lang => $slug) {
                 if ($template->homepage) {
-                    $path = $lang;
+                    $path = '/';
                 } else {
-                    $fullPath = $template->getFullPath($lang);
+                    $fullPath = $template->getFullPath('/');
                     $path = "{$fullPath}";
                 }
 
-                $alternates = [];
-                foreach ($translatedAttributes['slug'] as $alternateLang => $alternateSlug) {
-                    if ($template->homepage) {
-                        $alternatePath = $alternateLang;
-                    } else {
-                        $alternateFullPath = $template->getFullPath($alternateLang);
-                        $alternatePath = "{$alternateFullPath}";
-                    }
-
-                    $alternates[] = new SitemapUrlAlternate($alternateLang, $alternatePath);
-                }
-
-                $collection->push(new SitemapUrl($path, $template->updated_at, $alternates));
-            }
+                $collection->push(new SitemapUrl($path, $template->updated_at));
         }
 
         return $collection;

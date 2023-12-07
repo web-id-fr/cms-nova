@@ -134,7 +134,6 @@ class CmsServiceProvider extends ServiceProvider
     protected function publishConfiguration(): void
     {
         $this->publishes([
-            __DIR__ . '/../publish/config/translatable.php' => config_path('translatable.php'),
             __DIR__ . '/../publish/config/components.php' => config_path('components.php'),
             __DIR__ . '/../publish/config/cms.php' => config_path('cms.php'),
         ], 'config');
@@ -183,7 +182,6 @@ class CmsServiceProvider extends ServiceProvider
             __DIR__ . '/../publish/services/ExtraElementsForPageService.php' => base_path(
                 '/app/Services/ExtraElementsForPageService.php'
             ),
-            __DIR__ . '/../publish/services/ComponentsService.php' => base_path('/app/Services/ComponentsService.php'),
         ], 'services');
     }
 

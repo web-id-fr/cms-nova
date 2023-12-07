@@ -19,27 +19,10 @@ class AdvancedUrlField extends Field
 
         $locales = array_map(function ($value) {
             return __($value);
-        }, config('translatable.locales'));
+        }, config('cms.locales'));
 
         $this->withMeta([
             'locales' => $locales,
         ]);
-    }
-
-    /**
-     * Resolve the given attribute from the given resource.
-     *
-     * @param mixed  $resource
-     * @param string $attribute
-     *
-     * @return mixed
-     */
-    protected function resolveAttribute($resource, $attribute)
-    {
-        if (method_exists((object) $resource, 'getTranslations')) {
-            return $resource->getTranslations($attribute);
-        }
-
-        return data_get($resource, $attribute);
     }
 }

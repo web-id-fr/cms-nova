@@ -25,13 +25,13 @@ class RedirectionParentChild
         $lastParam = end($slugs);
         $lang = reset($slugs);
 
-        if (! array_key_exists($lang, config('translatable.locales'))) {
+        if (! array_key_exists($lang, config('cms.locales'))) {
             abort(404);
         }
 
         URL::defaults(['lang' => $lang]);
         $template = $this->templateRepository->getBySlug($lastParam, $lang);
-        $fullPath = $template->getFullPath($lang);
+        $fullPath = $template->getFullPath();
 
         if ($path !== $fullPath) {
             return redirect("/{$fullPath}", 301);

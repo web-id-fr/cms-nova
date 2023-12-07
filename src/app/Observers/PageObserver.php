@@ -3,13 +3,11 @@
 namespace Webid\CmsNova\App\Observers;
 
 use App\Models\Page;
-use Webid\CmsNova\App\Observers\Traits\GenerateTranslatableSlugIfNecessary;
+use Illuminate\Support\Str;
 use Webid\CmsNova\App\Repositories\PageRepository;
 
 class PageObserver
 {
-    use GenerateTranslatableSlugIfNecessary;
-
     public function __construct(private PageRepository $pageRepository)
     {
         $this->repository = $pageRepository;
@@ -17,12 +15,11 @@ class PageObserver
 
     public function saving(Page $page): void
     {
-        $titles = $page->getTranslations('title');
+        $title = $page->title;
         $originalSlug = $page->getOriginal('slug') ?? [];
-        $value = $page->getTranslations('slug');
 
-        $allSlug = $this->generateMissingSlugs($originalSlug, $value, $titles);
+        // TODO: check for existing slug
 
-        $page->slug = $allSlug;
+        $page->slug = Str::slug($originalSlug ?? $title);
     }
 }

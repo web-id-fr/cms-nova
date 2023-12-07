@@ -12,7 +12,7 @@ class ViewServiceProvider extends ServiceProvider
         View::composer('*', function ($view) {
             if (! request()->is('nova*')) {
                 $currentLangKey = request()->lang ?? config('app.locale');
-                $currentLang = config("translatable.locales.{$currentLangKey}");
+                $currentLang = config("cms.locales.{$currentLangKey}");
 
                 View::share('currentLang', $currentLang);
                 View::share('currentLangKey', $currentLangKey);

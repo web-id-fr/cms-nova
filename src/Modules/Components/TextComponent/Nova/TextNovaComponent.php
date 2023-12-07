@@ -3,7 +3,6 @@
 namespace Webid\CmsNova\Modules\Components\TextComponent\Nova;
 
 use Illuminate\Http\Request;
-use InteractionDesignFoundation\HtmlCard\HtmlCard;
 use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Select;
@@ -92,9 +91,7 @@ class TextNovaComponent extends Resource
     public function cards(Request $request)
     {
         return [
-            (new HtmlCard())->width('1/3')
-                ->view('cards.component', ['model' => self::$model])
-                ->center(true),
+            // TODO: Fix html card
         ];
     }
 }

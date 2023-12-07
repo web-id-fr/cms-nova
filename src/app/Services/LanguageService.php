@@ -9,7 +9,7 @@ class LanguageService
 {
     public function getUsedLanguage(): array
     {
-        return config('translatable.locales');
+        return config('cms.locales');
     }
 
     public function getBrowserDefault(): string
@@ -51,7 +51,7 @@ class LanguageService
 
     public function getAllLanguagesAsRegex(): string
     {
-        return implode('|', array_keys(config('translatable.locales') ?? []));
+        return implode('|', array_keys(config('cms.locales') ?? []));
     }
 
     public function isRTL(?string $lang = null): bool
@@ -60,7 +60,7 @@ class LanguageService
             $lang = app()->getLocale();
         }
 
-        $rtlLocales = config('translatable.rtl_locales', []);
+        $rtlLocales = config('cms.rtl_locales', []);
 
         return in_array($lang, $rtlLocales);
     }

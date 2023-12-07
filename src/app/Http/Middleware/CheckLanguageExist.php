@@ -13,7 +13,7 @@ class CheckLanguageExist
     {
         /** @var string $lang */
         $lang = $request->route('lang');
-        if (! array_key_exists($lang, config('translatable.locales'))) {
+        if (! array_key_exists($lang, config('cms.locales'))) {
             abort(404);
         }
 

@@ -29,10 +29,8 @@ use Webid\CmsNova\App\Models\Traits\HasStatus;
 abstract class BaseTemplate extends Model implements Menuable
 {
     use HasFactory;
-    use HasFlexible;
     use HasMenus;
     use HasStatus;
-    use HasTranslations;
 
     public const _STATUS_PUBLISHED = 0;
     public const _STATUS_DRAFT = 1;
@@ -120,27 +118,15 @@ abstract class BaseTemplate extends Model implements Menuable
         return $parent->push($this);
     }
 
-    public function getTranslationsAttribute(): array
+    public function getFullPath(): string
     {
-        return collect($this->getTranslatableAttributes())
-            ->mapWithKeys(function (string $key) {
-                return [$key => $this->getTranslations($key)];
-            })
-            ->toArray()
-        ;
-    }
-
-    public function getFullPath(string $language): string
-    {
-        $fullPath = $language;
         $ancestorsAndSelf = $this->ancestorsAndSelf();
+
+        $fullPath = '';
 
         foreach ($ancestorsAndSelf as $template) {
             if (! $template->homepage) {
-                $translatedAttributes = $template->getTranslationsAttribute();
-                if (isset($translatedAttributes['slug'][$language])) {
-                    $fullPath = "{$fullPath}/{$translatedAttributes['slug'][$language]}";
-                }
+                $fullPath = "/{$this->slug}";
             }
         }
 

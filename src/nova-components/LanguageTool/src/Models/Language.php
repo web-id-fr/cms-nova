@@ -53,7 +53,7 @@ class Language extends Model
     {
         if ($this->flag && ! $this->name) {
             $search = null;
-            foreach (config('translatable.locales') as $local => $language) {
+            foreach (config('cms.locales') as $local => $language) {
                 if ($local == self::getLocalByFlag($this->flag)) {
                     $search = $language;
 

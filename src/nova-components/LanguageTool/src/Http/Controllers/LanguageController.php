@@ -25,7 +25,7 @@ class LanguageController extends BaseController
     {
         $allPossible = [];
 
-        foreach (config('translatable.locales') as $local => $language) {
+        foreach (config('translatabl.locales') as $local => $language) {
             $allPossible[] = [
                 'name' => $language,
                 'flag' => Language::flagsByLocal($local),

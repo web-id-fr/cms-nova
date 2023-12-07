@@ -10,7 +10,6 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
-use Spatie\Translatable\HasTranslations;
 
 /**
  * Class Menu.
@@ -21,7 +20,6 @@ use Spatie\Translatable\HasTranslations;
 class Menu extends Model
 {
     use HasFactory;
-    use HasTranslations;
 
     /** Le séparateur utilisé dans la clause GROUP_BY du scope withZones() */
     protected const GROUP_BY_DELIMITER = '|||';

@@ -52,14 +52,12 @@ class MenuCustomItem extends Resource
     {
         return [
             Text::make(__('Title'), 'title')
-                ->singleLine()
                 ->rules('array'),
 
             Text::make(__('Menu description'), 'menu_description')
                 ->help(__(
                     'This field is optional and allows you to add a short description below the title in the sub-menu.'
-                ))
-                ->singleLine(),
+                )),
 
             Select::make(__('Type link'), 'type_link')
                 ->options(MenuCustomItemModel::linksTypes())

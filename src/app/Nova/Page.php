@@ -84,25 +84,11 @@ class Page extends Resource
         ];
     }
 
-    public function serializeForIndex(NovaRequest $request, $fields = null)
-    {
-        return array_merge(
-            parent::serializeForIndex($request, $fields),
-            [
-                'urls' => $this->getFullUrls(),
-                'titles' => $this->resource->getTranslations('title'),
-            ]
-        );
-    }
-
-    public function getFullUrls(): array
+    public function getFullUrl(): array
     {
         $urls = [];
-        $translatedSlugs = $this->resource->getTranslations('slug');
 
-        foreach ($translatedSlugs as $locale => $slug) {
-            $urls[$locale] = URL::to($this->resource->getFullPath($locale));
-        }
+        URL::to($this->resource->getFullPath());
 
         return $urls;
     }
@@ -140,7 +126,6 @@ class Page extends Resource
             Boolean::make(__('Homepage'), 'homepage'),
 
             Text::make(__('Title'), 'title')
-                ->singleLine()
                 ->rules('required')
                 ->sortable(),
 
@@ -148,18 +133,16 @@ class Page extends Resource
                 ->help(__(
                     'This field is optional and allows you to add a short description below the title in the sub-menu.'
                 ))
-                ->singleLine()
                 ->hideFromIndex()
                 ->sortable(),
 
             Text::make(__('Slug'), 'slug')
                 ->help(__('Please use only this type of slug "name-of-the-template"'))
-                ->singleLine()
                 ->rules('array', new TranslatableMax(100), new TranslatableSlug())
                 ->onlyOnForms(),
 
             PageUrlItemField::make('Url', 'slug')
-                ->urls($this->getFullUrls())
+                ->url($this->getFullUrl())
                 ->showOnIndex()
                 ->showOnDetail()
                 ->hideWhenUpdating()
@@ -204,28 +187,23 @@ class Page extends Resource
             Heading::make('Meta'),
 
             Text::make(__('Title'), 'metatitle')
-                ->singleLine()
                 ->hideFromIndex(),
 
             Text::make(__('Description'), 'metadescription')
-                ->trix()
                 ->asHtml()
                 ->rules('array')
                 ->hideFromIndex(),
 
             Text::make(__('Keywords'), 'meta_keywords')
                 ->rules('array')
-                ->singleLine()
                 ->hideFromIndex(),
 
             Heading::make('Open graph'),
 
             Text::make(__('Title'), 'opengraph_title')
-                ->singleLine()
                 ->hideFromIndex(),
 
             Text::make(__('Description'), 'opengraph_description')
-                ->trix()
                 ->asHtml()
                 ->rules('array')
                 ->hideFromIndex(),
@@ -234,7 +212,6 @@ class Page extends Resource
                 ->hideFromIndex(),
 
             Text::make(__('Image balise alt'), 'opengraph_picture_alt')
-                ->singleLine()
                 ->hideFromIndex(),
 
             Heading::make(__('Indexation')),

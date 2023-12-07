@@ -30,7 +30,7 @@ class MenuItemResource extends JsonResource
         if (Page::class == $this->resource->menuable_type) {
             /** @var Page $template */
             $template = $this->resource->menuable;
-            $full_path = $template->getFullPath(app()->getLocale());
+            $full_path = $template->getFullPath();
         }
 
         return [
