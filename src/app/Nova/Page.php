@@ -13,12 +13,9 @@ use Laravel\Nova\Fields\Heading;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Fields\Text;
-use Laravel\Nova\Http\Requests\NovaRequest;
 use Laravel\Nova\Resource;
 use Oneduo\NovaFileManager\FileManager;
 use Webid\CmsNova\App\Repositories\PageRepository;
-use Webid\CmsNova\App\Rules\TranslatableMax;
-use Webid\CmsNova\App\Rules\TranslatableSlug;
 use Webid\ComponentItemField\ComponentItemField;
 use Webid\PageUrlItemField\PageUrlItemField;
 
@@ -138,7 +135,6 @@ class Page extends Resource
 
             Text::make(__('Slug'), 'slug')
                 ->help(__('Please use only this type of slug "name-of-the-template"'))
-                ->rules('array', new TranslatableMax(100), new TranslatableSlug())
                 ->onlyOnForms(),
 
             PageUrlItemField::make('Url', 'slug')
@@ -191,11 +187,9 @@ class Page extends Resource
 
             Text::make(__('Description'), 'metadescription')
                 ->asHtml()
-                ->rules('array')
                 ->hideFromIndex(),
 
             Text::make(__('Keywords'), 'meta_keywords')
-                ->rules('array')
                 ->hideFromIndex(),
 
             Heading::make('Open graph'),
@@ -205,7 +199,6 @@ class Page extends Resource
 
             Text::make(__('Description'), 'opengraph_description')
                 ->asHtml()
-                ->rules('array')
                 ->hideFromIndex(),
 
             FileManager::make(__('Image'), 'opengraph_picture')
