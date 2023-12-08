@@ -5,13 +5,11 @@ namespace Webid\CmsNova\App\Nova\Menu;
 use Alexwenzel\DependencyContainer\DependencyContainer;
 use Alexwenzel\DependencyContainer\HasDependencies;
 use Illuminate\Http\Request;
-use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Resource;
 use Webid\AdvancedUrlField\AdvancedUrlField;
 use Webid\CmsNova\App\Models\Menu\MenuCustomItem as MenuCustomItemModel;
-use Webid\CmsNova\Modules\Form\Nova\Form;
 
 class MenuCustomItem extends Resource
 {
@@ -74,13 +72,6 @@ class MenuCustomItem extends Resource
                     ->rules('nullable')
                     ->hideFromIndex(),
             ])->dependsOn('type_link', MenuCustomItemModel::_LINK_URL),
-
-            DependencyContainer::make([
-                BelongsTo::make(__('Form'), 'form', Form::class)
-                    ->showCreateRelationButton()
-                    ->nullable()
-                    ->onlyOnForms(),
-            ])->dependsOn('type_link', MenuCustomItemModel::_LINK_FORM),
         ];
     }
 }

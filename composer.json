@@ -5,18 +5,18 @@
         "psr-4": {
             "Webid\\CmsNova\\": "src/",
             "Webid\\CmsNova\\App\\": "src/app/",
-            "Webid\\FieldItemField\\" : "src/nova-components/FieldItemField/src/",
-            "Webid\\LanguageTool\\" : "src/nova-components/LanguageTool/src/",
-            "Webid\\AdvancedUrlField\\": "src/nova-components/AdvancedUrlField/src/",
-            "Webid\\MenuTool\\" : "src/nova-components/MenuTool/src/",
-            "Webid\\ComponentTool\\" : "src/nova-components/ComponentTool/src/",
-            "Webid\\MenuItemField\\" : "src/nova-components/MenuItemField/src/",
-            "Webid\\ComponentItemField\\": "src/nova-components/ComponentItemField/src/",
-            "Webid\\ServiceItemField\\": "src/nova-components/ServiceItemField/src/",
-            "Webid\\PageUrlItemField\\" : "src/nova-components/PageUrlItemField/src/",
-            "Webid\\TemplateItemField\\" : "src/nova-components/TemplateItemField/src/",
-            "Webid\\SwitchLanguage\\" : "src/nova-components/SwitchLanguage/src/",
-            "Webid\\ImageItemField\\" : "src/nova-components/ImageItemField/src/"
+            "Webid\\SwitchLanguage\\" : "src/Modules/SwitchLanguage/src/",
+            "Webid\\LanguageTool\\" : "src/Modules/LanguageTool/src/",
+            "Webid\\MenuTool\\" : "src/Modules/MenuTool/src/",
+            "Webid\\ComponentTool\\" : "src/Modules/ComponentTool/src/",
+            "Webid\\AdvancedUrlField\\": "src/Modules/Fields/AdvancedUrlField/src/",
+            "Webid\\FieldItemField\\" : "src/Modules/Fields/FieldItemField/src/",
+            "Webid\\MenuItemField\\" : "src/Modules/Fields/MenuItemField/src/",
+            "Webid\\ComponentItemField\\": "src/Modules/Fields/ComponentItemField/src/",
+            "Webid\\ServiceItemField\\": "src/Modules/Fields/ServiceItemField/src/",
+            "Webid\\PageUrlItemField\\" : "src/Modules/Fields/PageUrlItemField/src/",
+            "Webid\\TemplateItemField\\" : "src/Modules/Fields/TemplateItemField/src/",
+            "Webid\\ImageItemField\\" : "src/Modules/Fields/ImageItemField/src/"
         },
         "files": [
             "src/app/helpers.php"
@@ -55,7 +55,7 @@
     "autoload-dev": {
         "psr-4": {
             "App\\": "src/app/",
-            "Webid\\ComponentTool\\" : "src/nova-components/ComponentTool/src/"
+            "Webid\\ComponentTool\\" : "src/Modules/ComponentTool/src/"
         }
     },
     "scripts": {
@@ -79,6 +79,7 @@
                 "Webid\\LanguageTool\\ToolServiceProvider",
                 "Webid\\AdvancedUrlField\\FieldServiceProvider",
                 "Webid\\MenuTool\\ToolServiceProvider",
+                "Webid\\ComponentItemField\\FieldServiceProvider",
                 "Webid\\MenuItemField\\FieldServiceProvider",
                 "Webid\\ServiceItemField\\FieldServiceProvider",
                 "Webid\\FieldItemField\\FieldServiceProvider",

@@ -72,40 +72,11 @@ php artisan vendor:publish --provider="Webid\CmsNova\CmsServiceProvider"
 php artisan migrate
 ```
 
-### 4. Add nova-components in composer
+### 4. Composer update
 
 ```bash
-"extra": {
-    "laravel": {
-        "dont-discover": [],
-        "providers": [
-            "Webid\\ComponentTool\\ToolServiceProvider"
-        ]
-    }
-}
-```  
-```bash
-"autoload": {
-    "psr-4": {
-        "Webid\\ComponentTool\\" : "nova-components/ComponentTool/src/"
-    },
-},
-```  
-```bash
-"require": {
-    "webid/component-item-field": "*",
-},
-
-"repositories": [
-    {
-        "type": "path",
-        "url": "./nova-components/ComponentItemField"
-    }
-]
+composer update
 ```
-
-Then run `composer update`
-
 
 ### 5. Link storage files
 
