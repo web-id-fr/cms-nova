@@ -4,7 +4,6 @@ namespace App\Providers;
 
 use App\Nova\Dashboards\Main;
 use App\Nova\User;
-use App\Services\ComponentsService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use Laravel\Nova\Menu\Menu;
@@ -15,8 +14,8 @@ use Laravel\Nova\NovaApplicationServiceProvider;
 use Oneduo\NovaFileManager\NovaFileManager;
 use Webid\CmsNova\App\Nova\Menu\Menu as MenuModule;
 use Webid\CmsNova\App\Nova\Menu\MenuCustomItem;
-use Webid\CmsNova\App\Nova\Popin\Popin;
-use Webid\CmsNova\App\Nova\Template;
+use Webid\CmsNova\App\Nova\Page;
+use Webid\CmsNova\App\Services\ComponentsService;
 use Webid\ComponentTool\ComponentTool;
 use Webid\LanguageTool\LanguageTool;
 use Webid\MenuTool\MenuTool;
@@ -35,30 +34,23 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
 
         Nova::mainMenu(function (Request $request, Menu $menu) {
             return [
-                MenuSection::make('Dashboard')
+                MenuSection::make(__('Dashboard'))
                     ->path('/dashboards/main'),
 
                 MenuSection::make(__('Filemanager'))
                     ->path('/nova-file-manager')
                     ->icon('photograph'),
 
-                MenuSection::make(__('Languages'))
-                    ->path('/language-tool')
-                    ->icon('translate'),
-
-                MenuSection::make('Menu', [
+                MenuSection::make(__('Menu'), [
                     MenuItem::resource(MenuModule::class),
                     MenuItem::resource(MenuCustomItem::class),
                     MenuItem::link(__('Configuration'), '/menu-tool'),
                 ])->icon('menu')->collapsable(),
 
-                MenuSection::make('Templates', [
+                MenuSection::make(__('Pages'), [
                     MenuItem::link(__('List of Components'), '/component-tool'),
-                    MenuItem::resource(Template::class),
+                    MenuItem::resource(Page::class),
                 ])->icon('template')->collapsable(),
-
-                MenuSection::resource(Popin::class)
-                    ->icon('bell'),
 
                 MenuSection::resource(User::class)
                     ->icon('users'),
@@ -117,5 +109,16 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
         return [
             new Main(),
         ];
+    }
+
+    protected function resources(): void
+    {
+        Nova::resourcesIn(app_path('Nova'));
+
+        $novaComponentClasses = [];
+        foreach (config('components') as $componentKey => $componentConfiguration) {
+            $novaComponentClasses[] = $componentConfiguration['nova_component'];
+        }
+        Nova::resources($novaComponentClasses);
     }
 }

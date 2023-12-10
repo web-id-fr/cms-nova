@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use Webid\CmsNova\App\Http\Controllers\PreviewController;
 use Webid\CmsNova\App\Http\Controllers\SitemapController;
-use Webid\CmsNova\App\Http\Controllers\TemplateController;
+use Webid\CmsNova\App\Http\Controllers\PageController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,7 +18,7 @@ use Webid\CmsNova\App\Http\Controllers\TemplateController;
 
 Route::group([], function () {
     // Redirect homepage without lang
-    Route::get('/', [TemplateController::class, 'rootPage']);
+    Route::get('/', [PageController::class, 'rootPage']);
 
     Route::group([
         'prefix' => '{lang}',
@@ -30,7 +30,7 @@ Route::group([], function () {
         ],
     ], function () {
         // Homepage
-        Route::get('/', [TemplateController::class, 'index'])->name('home');
+        Route::get('/', [PageController::class, 'index'])->name('home');
     });
 });
 
@@ -50,5 +50,5 @@ Route::middleware([
     'redirect-to-homepage',
     'redirect-parent-child',
 ])->group(function () {
-    Route::fallback([TemplateController::class, 'show']);
+    Route::fallback([PageController::class, 'show']);
 });

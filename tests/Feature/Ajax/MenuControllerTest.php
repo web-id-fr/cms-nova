@@ -2,12 +2,12 @@
 
 namespace Webid\CmsNova\Tests\Feature\Ajax;
 
-use App\Models\Template;
+use App\Models\Page;
 use Illuminate\Support\Facades\DB;
 use Webid\CmsNova\App\Models\Menu\Menu;
 use Webid\CmsNova\App\Models\Menu\MenuCustomItem;
 use Webid\CmsNova\App\Models\Menu\MenuItem;
-use Webid\CmsNova\Tests\Helpers\Traits\TemplateCreator;
+use Webid\CmsNova\Tests\Helpers\Traits\PageCreator;
 use Webid\CmsNova\Tests\TestCase;
 
 /**
@@ -15,7 +15,7 @@ use Webid\CmsNova\Tests\TestCase;
  */
 class MenuControllerTest extends TestCase
 {
-    use TemplateCreator;
+    use PageCreator;
 
     public const MENUS_INDEX_ROUTE = 'ajax.menus.index';
 
@@ -26,7 +26,7 @@ class MenuControllerTest extends TestCase
         $menu = Menu::factory()->create(['title' => ['fr' => 'mon super menu']]);
 
         // On crée un item + sous-menu
-        $parent_template = Template::factory()->create(['id' => 1]);
+        $parent_template = Page::factory()->create(['id' => 1]);
         $parent_menu_item = MenuItem::factory()
             ->hasItem($parent_template)
             ->forMenu($menu)

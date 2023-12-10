@@ -3,7 +3,7 @@
 namespace Webid\CmsNova\Tests\Unit;
 
 use Webid\CmsNova\App\Models\Dummy\DummyComponent;
-use Webid\CmsNova\Tests\Helpers\Traits\TemplateCreator;
+use Webid\CmsNova\Tests\Helpers\Traits\PageCreator;
 use Webid\CmsNova\Tests\TestCase;
 
 /**
@@ -11,7 +11,7 @@ use Webid\CmsNova\Tests\TestCase;
  */
 class ComponentTest extends TestCase
 {
-    use TemplateCreator;
+    use PageCreator;
 
     /** @test */
     public function relationships_are_deleted_on_component_deletion()

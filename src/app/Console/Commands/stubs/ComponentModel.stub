@@ -2,7 +2,7 @@
 
 namespace App\Models\Components;
 
-use App\Models\Template;
+use App\Models\Page;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Webid\CmsNova\App\Models\Traits\DeleteRelationshipOnCascade;
@@ -30,9 +30,9 @@ class {{componentName}}Component extends Model
         'status',
     ];
 
-    public function templates(): MorphToMany
+    public function pages(): MorphToMany
     {
-        return $this->morphToMany(Template::class, 'component')
+        return $this->morphToMany(Page::class, 'component')
             ->withPivot('order');
     }
 }

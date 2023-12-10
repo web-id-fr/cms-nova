@@ -5,7 +5,7 @@ namespace Webid\CmsNova\Modules\JavaScript\Providers;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Nova\Nova;
-use Webid\CmsNova\App\Nova\Components\CodeSnippetComponent;
+use Webid\CmsNova\App\Nova\Components\NovaCodeSnippetComponent;
 use Webid\CmsNova\App\Services\DynamicResource;
 use Webid\CmsNova\Modules\JavaScript\Nova\CodeSnippet;
 
@@ -22,7 +22,7 @@ class JavaScriptServiceProvider extends ServiceProvider
         $this->app->booted(function () {
             Nova::resources([
                 CodeSnippet::class,
-                CodeSnippetComponent::class,
+                NovaCodeSnippetComponent::class,
             ]);
         });
 

@@ -2,7 +2,7 @@
 
 namespace Webid\CmsNova;
 
-use App\Models\Template as TemplateModel;
+use App\Models\Page;
 use Illuminate\Cookie\Middleware\EncryptCookies;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Http\Resources\Json\JsonResource;
@@ -23,9 +23,7 @@ use Webid\CmsNova\App\Http\Middleware\RedirectionParentChild;
 use Webid\CmsNova\App\Http\Middleware\RedirectToHomepage;
 use Webid\CmsNova\App\Nova\Menu\Menu;
 use Webid\CmsNova\App\Nova\Menu\MenuCustomItem;
-use Webid\CmsNova\App\Nova\Popin\Popin;
-use Webid\CmsNova\App\Nova\Template;
-use Webid\CmsNova\App\Observers\TemplateObserver;
+use Webid\CmsNova\App\Observers\PageObserver;
 use Webid\CmsNova\App\Providers\ViewServiceProvider;
 use Webid\CmsNova\App\Services\DynamicResource;
 use Webid\CmsNova\App\Services\LanguageService;
@@ -40,6 +38,8 @@ class CmsServiceProvider extends ServiceProvider
             $generator->forceScheme('https');
         }
 
+        $this->bootComponents();
+
         $this->app->singleton(DynamicResource::class);
         $this->app->singleton(MenuService::class);
         $this->app->singleton(SitemapGenerator::class);
@@ -50,12 +50,9 @@ class CmsServiceProvider extends ServiceProvider
         $this->publishProvider();
         $this->publishViews();
         $this->publishPublicFiles();
-        $this->publishTemplateModel();
-        $this->publishNovaComponents();
+        $this->publishPageModel();
         $this->publishTranslations();
         $this->publishServices();
-        $this->publishSeeders();
-        $this->publishCommands();
 
         $this->registerAliasMiddleware($router);
         $router->pushMiddlewareToGroup('redirect-parent-child', RedirectionParentChild::class);
@@ -66,13 +63,12 @@ class CmsServiceProvider extends ServiceProvider
 
         Nova::serving(function (ServingNova $event) {
             // Model Observers
-            TemplateModel::observe(TemplateObserver::class);
+            Page::observe(PageObserver::class);
         });
 
         $this->app->booted(function () {
             Nova::resources([
-                Template::class,
-                Popin::class,
+                App\Nova\Page::class,
                 Menu::class,
                 MenuCustomItem::class,
             ]);
@@ -97,6 +93,34 @@ class CmsServiceProvider extends ServiceProvider
         $this->app->register(ViewServiceProvider::class);
     }
 
+    protected function bootComponents(): void
+    {
+        $components = config('components');
+        if (! is_array($components)) {
+            return;
+        }
+
+
+        foreach ($components as $componentKey => $componentConfiguration) {
+            if (isset($componentConfiguration['from_config_file'])) {
+                app('config')->set(
+                    'components.' . $componentKey,
+                    array_merge(require $componentConfiguration['from_config_file'], $componentConfiguration)
+                );
+
+                $this->loadMigrationsFrom(config('components.' . $componentKey . 'migrations_dir'));
+            }
+
+            $mergedConfiguration = config('components.' . $componentKey);
+
+            Page::resolveRelationUsing($mergedConfiguration['relationName'], function(Page $pageModel ) use ($mergedConfiguration) {
+                return $pageModel->morphedByMany($mergedConfiguration['model'], 'component')
+                    ->withPivot('order')
+                    ->orderBy('order');
+            });
+
+        }
+    }
     protected function registerMenuDirective(): void
     {
         Blade::directive('menu', function ($expression) {
@@ -110,7 +134,6 @@ class CmsServiceProvider extends ServiceProvider
     protected function publishConfiguration(): void
     {
         $this->publishes([
-            __DIR__ . '/../publish/config/translatable.php' => config_path('translatable.php'),
             __DIR__ . '/../publish/config/components.php' => config_path('components.php'),
             __DIR__ . '/../publish/config/cms.php' => config_path('cms.php'),
         ], 'config');
@@ -139,20 +162,11 @@ class CmsServiceProvider extends ServiceProvider
         ], 'public');
     }
 
-    protected function publishNovaComponents(): void
+    protected function publishPageModel(): void
     {
         $this->publishes([
-            __DIR__ . '/../publish/nova-components/ComponentItemField' => base_path(
-                '/nova-components/ComponentItemField'
-            ),
-        ], 'nova-components');
-    }
-
-    protected function publishTemplateModel(): void
-    {
-        $this->publishes([
-            __DIR__ . '/../publish/app/models/Template.php' => base_path('/app/Models/Template.php'),
-        ], 'template-model');
+            __DIR__ . '/../publish/app/models/Page.php' => base_path('/app/Models/Page.php'),
+        ], 'page-model');
     }
 
     protected function publishTranslations(): void
@@ -168,25 +182,7 @@ class CmsServiceProvider extends ServiceProvider
             __DIR__ . '/../publish/services/ExtraElementsForPageService.php' => base_path(
                 '/app/Services/ExtraElementsForPageService.php'
             ),
-            __DIR__ . '/../publish/services/ComponentsService.php' => base_path('/app/Services/ComponentsService.php'),
         ], 'services');
-    }
-
-    protected function publishSeeders(): void
-    {
-        $this->publishes([
-            __DIR__ . '/../publish/database/seeders/LanguageSeeder.php' => database_path('seeders/LanguageSeeder.php'),
-            __DIR__ . '/../publish/database/seeders/Components/BreadcrumbComponentSeeder.php' => database_path(
-                'seeders/Components/BreadcrumbComponentSeeder.php'
-            ),
-        ], 'seeders');
-    }
-
-    protected function publishCommands(): void
-    {
-        $this->publishes([
-            __DIR__ . '/../publish/app/Console' => app_path('Console'),
-        ], 'commands');
     }
 
     protected function registerAliasMiddleware(Router $router): void

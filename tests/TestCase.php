@@ -84,7 +84,7 @@ class TestCase extends OrchestraTestCase
         View::addLocation(package_base_path('src/resources/views'));
         $app->instance('path.public', package_base_path());
 
-        View::share('currentLang', config('translatable.locales.'.request()->lang) ?? '');
+        View::share('currentLang', config('cms.locales.'.request()->lang) ?? '');
     }
 
     /**

@@ -28,7 +28,6 @@ class MenuCustomItemResource extends JsonResource
 
             $this->mergeWhen(MenuCustomItemModel::_LINK_FORM == $this->resource->type_link, [
                 'form' => FormResource::make($this->whenLoaded('form'))->resolve(),
-                'is_popin' => true,
             ]),
         ];
     }

@@ -2,7 +2,7 @@
 
 namespace Webid\CmsNova\App\Models;
 
-use App\Models\Template;
+use App\Models\Page;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -23,17 +23,14 @@ use Webid\CmsNova\App\Models\Traits\HasStatus;
  * @property array|string $slug
  * @property bool|int     $homepage
  * @property int          $status
- * @property bool|int     $contains_articles_list
  * @property \DateTime    $publish_at
  * @property int          $parent_page_id
  */
 abstract class BaseTemplate extends Model implements Menuable
 {
     use HasFactory;
-    use HasFlexible;
     use HasMenus;
     use HasStatus;
-    use HasTranslations;
 
     public const _STATUS_PUBLISHED = 0;
     public const _STATUS_DRAFT = 1;
@@ -55,7 +52,7 @@ abstract class BaseTemplate extends Model implements Menuable
      *
      * @var string
      */
-    protected $table = 'templates';
+    protected $table = 'pages';
 
     protected $fillable = [
         'title',
@@ -73,7 +70,6 @@ abstract class BaseTemplate extends Model implements Menuable
         'publish_at',
         'homepage',
         'menu_description',
-        'contains_articles_list',
         'parent_id',
         'reference_page_id',
     ];
@@ -104,14 +100,9 @@ abstract class BaseTemplate extends Model implements Menuable
         return boolval($this->homepage);
     }
 
-    public function containsArticlesList(): bool
-    {
-        return boolval($this->contains_articles_list);
-    }
-
     public function parent(): BelongsTo
     {
-        return $this->belongsTo(Template::class, $this->getParentKeyName());
+        return $this->belongsTo(Page::class, $this->getParentKeyName());
     }
 
     public function ancestorsAndSelf(): Collection
@@ -127,57 +118,25 @@ abstract class BaseTemplate extends Model implements Menuable
         return $parent->push($this);
     }
 
-    public function getTranslationsAttribute(): array
+    public function getFullPath(): string
     {
-        return collect($this->getTranslatableAttributes())
-            ->mapWithKeys(function (string $key) {
-                return [$key => $this->getTranslations($key)];
-            })
-            ->toArray()
-        ;
-    }
-
-    public function getFullPath(string $language): string
-    {
-        $fullPath = $language;
         $ancestorsAndSelf = $this->ancestorsAndSelf();
+
+        $fullPath = '';
 
         foreach ($ancestorsAndSelf as $template) {
             if (! $template->homepage) {
-                $translatedAttributes = $template->getTranslationsAttribute();
-                if (isset($translatedAttributes['slug'][$language])) {
-                    $fullPath = "{$fullPath}/{$translatedAttributes['slug'][$language]}";
-                }
+                $fullPath = "/{$this->slug}";
             }
         }
 
         return $fullPath;
     }
 
-    public function getBreadcrumb(string $language): array
-    {
-        $fullPath = $language;
-        $breadcrumb = [];
-        $ancestorsAndSelf = $this->ancestorsAndSelf();
-
-        foreach ($ancestorsAndSelf as $key => $template) {
-            $translatedAttributes = $template->getTranslationsAttribute();
-            if (isset($translatedAttributes['slug'][$language])) {
-                $breadcrumb[$key]['url'] = "/{$fullPath}/{$translatedAttributes['slug'][$language]}";
-                $breadcrumb[$key]['title'] = $translatedAttributes['title'][$language] ?? '';
-                if (! $template->homepage) {
-                    $fullPath = "{$fullPath}/{$translatedAttributes['slug'][$language]}";
-                }
-            }
-        }
-
-        return $breadcrumb;
-    }
-
     public function referencePage(): BelongsTo
     {
-        return $this->belongsTo(Template::class)
-            ->where('status', Template::_STATUS_PUBLISHED)
+        return $this->belongsTo(Page::class)
+            ->where('status', Page::_STATUS_PUBLISHED)
         ;
     }
 
@@ -206,7 +165,7 @@ abstract class BaseTemplate extends Model implements Menuable
         });
     }
 
-    private function collectAncestors(Template $parent, array $ancestors = []): array
+    private function collectAncestors(Page $parent, array $ancestors = []): array
     {
         $ancestors[] = $parent;
 

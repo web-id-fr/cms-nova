@@ -4,13 +4,13 @@ namespace Webid\CmsNova\App\Http\Middleware;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\URL;
-use Webid\CmsNova\App\Repositories\TemplateRepository;
+use Webid\CmsNova\App\Repositories\PageRepository;
 
 class RedirectionParentChild
 {
-    private TemplateRepository $templateRepository;
+    private PageRepository $templateRepository;
 
-    public function __construct(TemplateRepository $templateRepository)
+    public function __construct(PageRepository $templateRepository)
     {
         $this->templateRepository = $templateRepository;
     }
@@ -25,13 +25,13 @@ class RedirectionParentChild
         $lastParam = end($slugs);
         $lang = reset($slugs);
 
-        if (! array_key_exists($lang, config('translatable.locales'))) {
+        if (! array_key_exists($lang, config('cms.locales'))) {
             abort(404);
         }
 
         URL::defaults(['lang' => $lang]);
         $template = $this->templateRepository->getBySlug($lastParam, $lang);
-        $fullPath = $template->getFullPath($lang);
+        $fullPath = $template->getFullPath();
 
         if ($path !== $fullPath) {
             return redirect("/{$fullPath}", 301);

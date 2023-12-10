@@ -7,6 +7,5 @@ return [
     ],
     'components' => [
         'Code snippet component' => 'Extrait de code',
-        'Newsletter component' => 'Newsletter',
     ],
 ];

@@ -5,10 +5,8 @@ namespace Webid\CmsNova\App\Models\Menu;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Spatie\Translatable\HasTranslations;
 use Webid\CmsNova\App\Models\Contracts\Menuable;
 use Webid\CmsNova\App\Models\Traits\HasMenus;
-use Webid\CmsNova\Modules\Form\Models\Form;
 
 /**
  * Class MenuCustomItem.
@@ -25,7 +23,6 @@ class MenuCustomItem extends Model implements Menuable
 {
     use HasFactory;
     use HasMenus;
-    use HasTranslations;
 
     public const _STATUS_SELF = '_SELF';
     public const _STATUS_BLANK = '_BLANK';
@@ -66,8 +63,4 @@ class MenuCustomItem extends Model implements Menuable
         ];
     }
 
-    public function form(): BelongsTo
-    {
-        return $this->belongsTo(Form::class);
-    }
 }

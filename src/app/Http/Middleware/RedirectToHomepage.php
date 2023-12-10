@@ -3,13 +3,13 @@
 namespace Webid\CmsNova\App\Http\Middleware;
 
 use Illuminate\Http\Request;
-use Webid\CmsNova\App\Services\TemplateService;
+use Webid\CmsNova\App\Services\PageService;
 
 class RedirectToHomepage
 {
-    private TemplateService $templateService;
+    private PageService $templateService;
 
-    public function __construct(TemplateService $templateService)
+    public function __construct(PageService $templateService)
     {
         $this->templateService = $templateService;
     }

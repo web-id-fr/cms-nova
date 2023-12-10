@@ -4,7 +4,7 @@ namespace Webid\CmsNova\Tests\Feature;
 
 use Illuminate\Support\Facades\App;
 use Webid\CmsNova\Tests\Helpers\Traits\NewsletterComponentCreator;
-use Webid\CmsNova\Tests\Helpers\Traits\TemplateCreator;
+use Webid\CmsNova\Tests\Helpers\Traits\PageCreator;
 use Webid\CmsNova\Tests\TestCase;
 
 /**
@@ -13,7 +13,7 @@ use Webid\CmsNova\Tests\TestCase;
 class TemplateTest extends TestCase
 {
     use NewsletterComponentCreator;
-    use TemplateCreator;
+    use PageCreator;
 
     public const _ROUTE_INDEX = 'home';
 

@@ -2,7 +2,6 @@
 
 namespace Webid\CmsNova\Tests\Feature;
 
-use Webid\CmsNova\Tests\Helpers\Traits\NewsletterComponentCreator;
 use Webid\CmsNova\Tests\TestCase;
 
 /**
@@ -10,8 +9,6 @@ use Webid\CmsNova\Tests\TestCase;
  */
 class PreviewTest extends TestCase
 {
-    use NewsletterComponentCreator;
-
     public const _ROUTE_INDEX = 'preview';
 
     /** @var array */
@@ -27,12 +24,6 @@ class PreviewTest extends TestCase
             'slug' => 'slug-en-fr',
             'lang' => 'fr',
             'token' => uniqid(),
-        ];
-
-        $newsletterComponent = $this->createNewsletterComponent();
-        $this->data['components'][] = [
-            'id' => $newsletterComponent->getKey(),
-            'component_type' => get_class($newsletterComponent),
         ];
     }
 

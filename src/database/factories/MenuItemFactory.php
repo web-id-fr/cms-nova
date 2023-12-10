@@ -2,7 +2,7 @@
 
 namespace Webid\CmsNova\Database\Factories;
 
-use App\Models\Template;
+use App\Models\Page;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Webid\CmsNova\App\Models\Menu\Menu;
 use Webid\CmsNova\App\Models\Menu\MenuCustomItem;
@@ -21,7 +21,7 @@ class MenuItemFactory extends Factory
         ];
     }
 
-    public function hasItem(MenuCustomItem|Template $menuable): self
+    public function hasItem(MenuCustomItem|Page $menuable): self
     {
         return $this->state(function () use ($menuable) {
             return [
@@ -31,7 +31,7 @@ class MenuItemFactory extends Factory
         });
     }
 
-    public function hasParent(MenuCustomItem|Template $parent): self
+    public function hasParent(MenuCustomItem|Page $parent): self
     {
         return $this->state(function () use ($parent) {
             return [

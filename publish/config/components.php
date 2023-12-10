@@ -1,31 +1,36 @@
 <?php
 
-use Webid\CmsNova\App\Http\Resources\Components\BreadcrumbComponentResource;
-use Webid\CmsNova\App\Models\Components\BreadcrumbComponent;
-
 /*
 |--------------------------------------------------------------------------
 | Components config
 |--------------------------------------------------------------------------
 |
-| Use the following schema to store components :
+| Use the following schema to enable external components :
 |
-| ComponentModel::class => [
-|   'title" => 'Title component",
-|   'image' => 'PATH_TO_COMPONENT_IMAGE', // /images/components/component.png
-|   'resource => CompenentResource::class,
-|   'view' => 'PATH_TO_COMPONENT_VIEW, // components/component
-|   'nova' => 'URL_TO_ACCES_RESOURCE_NOVA', // /nova/resources/component
-|   'display_on_components_list' => false // optional
+|   'text_image' => [
+|        'from_config_file' => base_path('modules/cms-components/TextImageComponent/config.php'),
+|        'display_on_components_list' => true,
+|        'image' => '/cms/images/components/text_image_component.png',
+|    ]
 | ]
 */
 
+use Webid\CmsNova\Modules\Components\TextComponent\Models\TextComponent;
+use Webid\CmsNova\Modules\Components\TextComponent\Nova\TextNovaComponent;
+use Webid\CmsNova\Modules\Components\TextComponent\Repositories\TextComponentRepository;
+use Webid\CmsNova\Modules\Components\TextComponent\Resources\TextResource;
+
 return [
-    BreadcrumbComponent::class => [
-        'title' => 'Breadcrumb component',
-        'image' => '/cms/images/components/breadcrumb_component.png',
-        'resource' => BreadcrumbComponentResource::class,
-        'view' => 'components/breadcrumb',
-        'display_on_components_list' => false,
+    'text' => [
+        'title' => 'Text component',
+        'model' => TextComponent::class,
+        'resource' => TextResource::class,
+        'nova_component' => TextNovaComponent::class,
+        'repository' => TextComponentRepository::class,
+        'image' => '/cms/images/components/text_component.png',
+        'view' => 'components/text',
+        'display_on_components_list' => true,
+        'nova' => '/nova/resources/text-nova-components',
+        'relationName' => 'textComponents',
     ],
 ];

@@ -5,13 +5,11 @@ namespace Webid\CmsNova\App\Nova\Menu;
 use Alexwenzel\DependencyContainer\DependencyContainer;
 use Alexwenzel\DependencyContainer\HasDependencies;
 use Illuminate\Http\Request;
-use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\Select;
+use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Resource;
 use Webid\AdvancedUrlField\AdvancedUrlField;
 use Webid\CmsNova\App\Models\Menu\MenuCustomItem as MenuCustomItemModel;
-use Webid\CmsNova\Modules\Form\Nova\Form;
-use Webid\TranslatableItemField\Translatable;
 
 class MenuCustomItem extends Resource
 {
@@ -51,15 +49,13 @@ class MenuCustomItem extends Resource
     public function fields(Request $request): array
     {
         return [
-            Translatable::make(__('Title'), 'title')
-                ->singleLine()
+            Text::make(__('Title'), 'title')
                 ->rules('array'),
 
-            Translatable::make(__('Menu description'), 'menu_description')
+            Text::make(__('Menu description'), 'menu_description')
                 ->help(__(
                     'This field is optional and allows you to add a short description below the title in the sub-menu.'
-                ))
-                ->singleLine(),
+                )),
 
             Select::make(__('Type link'), 'type_link')
                 ->options(MenuCustomItemModel::linksTypes())
@@ -76,13 +72,6 @@ class MenuCustomItem extends Resource
                     ->rules('nullable')
                     ->hideFromIndex(),
             ])->dependsOn('type_link', MenuCustomItemModel::_LINK_URL),
-
-            DependencyContainer::make([
-                BelongsTo::make(__('Form'), 'form', Form::class)
-                    ->showCreateRelationButton()
-                    ->nullable()
-                    ->onlyOnForms(),
-            ])->dependsOn('type_link', MenuCustomItemModel::_LINK_FORM),
         ];
     }
 }

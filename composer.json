@@ -5,21 +5,18 @@
         "psr-4": {
             "Webid\\CmsNova\\": "src/",
             "Webid\\CmsNova\\App\\": "src/app/",
-            "Webid\\FieldItemField\\" : "src/nova-components/FieldItemField/src/",
-            "Webid\\LanguageTool\\" : "src/nova-components/LanguageTool/src/",
-            "Webid\\TranslatableItemField\\" : "src/nova-components/TranslatableItemField/src/",
-            "Webid\\AdvancedUrlField\\": "src/nova-components/AdvancedUrlField/src/",
-            "Webid\\MenuTool\\" : "src/nova-components/MenuTool/src/",
-            "Webid\\ComponentTool\\" : "src/nova-components/ComponentTool/src/",
-            "Webid\\MenuItemField\\" : "src/nova-components/MenuItemField/src/",
-            "Webid\\RecipientItemField\\": "src/nova-components/RecipientItemField/src/",
-            "Webid\\ServiceItemField\\": "src/nova-components/ServiceItemField/src/",
-            "Webid\\PageUrlItemField\\" : "src/nova-components/PageUrlItemField/src/",
-            "Webid\\ArticleCategoriesItemField\\" : "src/nova-components/ArticleCategoriesItemField/src/",
-            "Webid\\ConfirmationEmailItemField\\" : "src/nova-components/ConfirmationEmailItemField/src/",
-            "Webid\\TemplateItemField\\" : "src/nova-components/TemplateItemField/src/",
-            "Webid\\SwitchLanguage\\" : "src/nova-components/SwitchLanguage/src/",
-            "Webid\\ImageItemField\\" : "src/nova-components/ImageItemField/src/"
+            "Webid\\SwitchLanguage\\" : "src/Modules/SwitchLanguage/src/",
+            "Webid\\LanguageTool\\" : "src/Modules/LanguageTool/src/",
+            "Webid\\MenuTool\\" : "src/Modules/MenuTool/src/",
+            "Webid\\ComponentTool\\" : "src/Modules/ComponentTool/src/",
+            "Webid\\AdvancedUrlField\\": "src/Modules/Fields/AdvancedUrlField/src/",
+            "Webid\\FieldItemField\\" : "src/Modules/Fields/FieldItemField/src/",
+            "Webid\\MenuItemField\\" : "src/Modules/Fields/MenuItemField/src/",
+            "Webid\\ComponentItemField\\": "src/Modules/Fields/ComponentItemField/src/",
+            "Webid\\ServiceItemField\\": "src/Modules/Fields/ServiceItemField/src/",
+            "Webid\\PageUrlItemField\\" : "src/Modules/Fields/PageUrlItemField/src/",
+            "Webid\\TemplateItemField\\" : "src/Modules/Fields/TemplateItemField/src/",
+            "Webid\\ImageItemField\\" : "src/Modules/Fields/ImageItemField/src/"
         },
         "files": [
             "src/app/helpers.php"
@@ -39,15 +36,10 @@
         "php": "^8.2",
         "laravel/framework": "^9|^10",
         "laravel/nova": "~4.0",
-        "eminiarts/nova-tabs": "^2.2",
-        "whitecube/nova-flexible-content": "^1.0",
         "spatie/laravel-honeypot": "^4.3",
-        "spatie/laravel-translatable": "^6.2",
-        "spatie/laravel-sitemap": "^6.2",
         "nwidart/laravel-modules": "9.*",
         "oneduo/nova-file-manager": "^0.12.0",
-        "alexwenzel/nova-dependency-container": "^1.10",
-        "interaction-design-foundation/nova-html-card": "^3.1"
+        "alexwenzel/nova-dependency-container": "^1.10"
     },
     "require-dev": {
         "phpunit/phpunit": "^9.5.10",
@@ -63,7 +55,7 @@
     "autoload-dev": {
         "psr-4": {
             "App\\": "src/app/",
-            "Webid\\ComponentTool\\" : "src/nova-components/ComponentTool/src/"
+            "Webid\\ComponentTool\\" : "src/Modules/ComponentTool/src/"
         }
     },
     "scripts": {
@@ -85,16 +77,13 @@
                 "Laravel\\Nova\\NovaServiceProvider",
                 "Webid\\CmsNova\\CmsServiceProvider",
                 "Webid\\LanguageTool\\ToolServiceProvider",
-                "Webid\\TranslatableItemField\\FieldServiceProvider",
                 "Webid\\AdvancedUrlField\\FieldServiceProvider",
                 "Webid\\MenuTool\\ToolServiceProvider",
+                "Webid\\ComponentItemField\\FieldServiceProvider",
                 "Webid\\MenuItemField\\FieldServiceProvider",
-                "Webid\\RecipientItemField\\FieldServiceProvider",
                 "Webid\\ServiceItemField\\FieldServiceProvider",
                 "Webid\\FieldItemField\\FieldServiceProvider",
                 "Webid\\PageUrlItemField\\FieldServiceProvider",
-                "Webid\\ArticleCategoriesItemField\\FieldServiceProvider",
-                "Webid\\ConfirmationEmailItemField\\FieldServiceProvider",
                 "Webid\\TemplateItemField\\FieldServiceProvider",
                 "Webid\\ComponentTool\\ToolServiceProvider",
                 "Webid\\SwitchLanguage\\ToolServiceProvider",
@@ -106,6 +95,10 @@
         {
             "type": "composer",
             "url": "https://nova.laravel.com"
+        },
+        {
+            "type": "path",
+            "url": "./cms-nova/src/nova-components/ComponentItemField"
         }
     ]
 }

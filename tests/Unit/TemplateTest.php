@@ -5,7 +5,7 @@ namespace Webid\CmsNova\Tests\Unit;
 use Webid\CmsNova\App\Models\Menu\Menu;
 use Webid\CmsNova\App\Models\Menu\MenuCustomItem;
 use Webid\CmsNova\App\Models\Menu\MenuItem;
-use Webid\CmsNova\Tests\Helpers\Traits\TemplateCreator;
+use Webid\CmsNova\Tests\Helpers\Traits\PageCreator;
 use Webid\CmsNova\Tests\TestCase;
 
 /**
@@ -13,7 +13,7 @@ use Webid\CmsNova\Tests\TestCase;
  */
 class TemplateTest extends TestCase
 {
-    use TemplateCreator;
+    use PageCreator;
 
     /** @test */
     public function foreign_menuables_are_deleted_on_template_deletion()

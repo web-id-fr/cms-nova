@@ -112,7 +112,7 @@ if (! function_exists('media_full_url')) {
 if (! function_exists('arrayKeysAreLocales')) {
     function arrayKeysAreLocales(array $parameter): bool
     {
-        return ! empty(array_intersect_key(config('translatable.locales'), $parameter));
+        return ! empty(array_intersect_key(config('cms.locales'), $parameter));
     }
 }
 

@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Webid\CmsNova\Modules\Redirections301\Tests\Helpers\RedirectionCreator;
 use Webid\CmsNova\Modules\Redirections301\Tests\Redirections301TestCase;
 use Webid\CmsNova\Tests\Helpers\Traits\DummyUserCreator;
-use Webid\CmsNova\Tests\Helpers\Traits\TemplateCreator;
+use Webid\CmsNova\Tests\Helpers\Traits\PageCreator;
 use Webid\CmsNova\Tests\Helpers\Traits\TestsNovaResource;
 
 /**
@@ -16,7 +16,7 @@ class RedirectionTest extends Redirections301TestCase
 {
     use DummyUserCreator;
     use RedirectionCreator;
-    use TemplateCreator;
+    use PageCreator;
     use TestsNovaResource;
 
     /** @test */
