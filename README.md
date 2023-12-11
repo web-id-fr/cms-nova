@@ -49,6 +49,12 @@ Add the git repository directory in the composer repositories as follows:
         },
 ```
 
+While in development, set the minimum stability to dev
+
+```bash
+    "minimum-stability": "dev",
+```
+
 Then, for both of the standard and contributor ways,
 
 ```bash
