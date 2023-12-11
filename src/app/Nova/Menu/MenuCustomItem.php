@@ -49,8 +49,7 @@ class MenuCustomItem extends Resource
     public function fields(Request $request): array
     {
         return [
-            Text::make(__('Title'), 'title')
-                ->rules('array'),
+            Text::make(__('Title'), 'title'),
 
             Text::make(__('Menu description'), 'menu_description')
                 ->help(__(

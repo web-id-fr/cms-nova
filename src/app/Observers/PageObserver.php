@@ -16,7 +16,7 @@ class PageObserver
     public function saving(Page $page): void
     {
         $title = $page->title;
-        $originalSlug = $page->getOriginal('slug') ?? [];
+        $originalSlug = $page->getOriginal('slug');
 
         // TODO: check for existing slug
 
