@@ -37,7 +37,7 @@
         "laravel/framework": "^9|^10",
         "laravel/nova": "~4.0",
         "spatie/laravel-honeypot": "^4.3",
-        "nwidart/laravel-modules": "9.*",
+        "nwidart/laravel-modules": "10.*",
         "oneduo/nova-file-manager": "^0.12.0",
         "alexwenzel/nova-dependency-container": "^1.10"
     },
